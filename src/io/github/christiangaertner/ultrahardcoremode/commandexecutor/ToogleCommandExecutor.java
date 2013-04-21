@@ -35,6 +35,8 @@ public class ToogleCommandExecutor implements CommandExecutor {
                 return false;
             } else {
                 Player player = (Player) cs;
+                
+                
                 settings.setStatus(player, !settings.isDisabled(player));
                 return true;
             } 

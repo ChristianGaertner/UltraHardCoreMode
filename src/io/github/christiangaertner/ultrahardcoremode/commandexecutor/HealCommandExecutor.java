@@ -62,6 +62,11 @@ public class HealCommandExecutor implements CommandExecutor {
             cs.sendMessage("Please check your input. Too many arguments.");
             return false;
         }
+        
+        if (player.hasPermission("uhc.denyheal")) {
+            player.sendMessage("You do not have the permission to perform this command!");
+            return true;
+        }
 
         boolean heal = false;
         
