@@ -17,18 +17,20 @@ import org.bukkit.plugin.java.JavaPlugin;
  * @author Christian
  */
 public class UltraHardCoreMode extends JavaPlugin{
-       
+    
+    private Settings settings = new Settings();
+    
+    
     Logger log = Bukkit.getLogger();
     
     @Override
     public void onEnable(){
         //REGISTER COMMANDS
-        getCommand("uhc-toogle")    .setExecutor(new ToogleCommandExecutor(this));
-        getCommand("uhc-check")     .setExecutor(new CheckCommandExecutor(this));
-        getCommand("uhc-heal")      .setExecutor(new HealCommandExecutor(this));
+        getCommand("uhc-toogle")    .setExecutor(new ToogleCommandExecutor  (this, settings));
+        getCommand("uhc-heal")      .setExecutor(new HealCommandExecutor    (this, settings));
         
         //REGISTER EVENTS
-         getServer().getPluginManager().registerEvents(new RegenListener(), this);
+         getServer().getPluginManager().registerEvents(new RegenListener(settings), this);
     }
     
     @Override
