@@ -24,6 +24,7 @@ public class ToogleCommandExecutor implements CommandExecutor {
  
     public ToogleCommandExecutor(UltraHardCoreMode plugin, Settings settings) {
             this.plugin = plugin;
+            this.settings = settings;
     }
 
     @Override

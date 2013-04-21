@@ -4,7 +4,6 @@
  */
 package io.github.christiangaertner.ultrahardcoremode;
 
-import io.github.christiangaertner.ultrahardcoremode.commandexecutor.CheckCommandExecutor;
 import io.github.christiangaertner.ultrahardcoremode.commandexecutor.HealCommandExecutor;
 import io.github.christiangaertner.ultrahardcoremode.commandexecutor.ToogleCommandExecutor;
 import io.github.christiangaertner.ultrahardcoremode.listener.RegenListener;
@@ -18,7 +17,7 @@ import org.bukkit.plugin.java.JavaPlugin;
  */
 public class UltraHardCoreMode extends JavaPlugin{
     
-    private Settings settings = new Settings();
+    public Settings settings = new Settings();
     
     
     Logger log = Bukkit.getLogger();

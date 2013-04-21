@@ -8,8 +8,7 @@ commands:
     usage: /<command> [option:player|global]
   uhc-heal:
     description: Removes one gold ingot and an apple from your inventory and heals you by 2.5 hearts
-    usage: /<command>
-    
+    usage: /<command> 
 permissions:
   uhc.bypass:
     description: Bypasses the UHC Plugin
