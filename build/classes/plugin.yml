@@ -1,0 +1,14 @@
+name: UltraHardCoreMode
+main: io.github.christiangaertner.ultrahardcoremode.UltraHardCoreMode
+version: 0.1
+description: SethBlings UHC-Box ported to Craftbukkit
+commands:
+  uhc-toogle:
+    description: Toogles the UHC for the player who issued the command or if 'global' is attached for the hole server
+    usage: /<command> [option:flag]
+  uhc-check:
+    description: Shows you how many items you have checked in or if a player is named for this player
+    usage: /<command> [option:player]
+  uhc-heal:
+    description: Removes one gold ingot and an apple from your inventory and heals you by 2.5 hearts
+    usage: /<command>

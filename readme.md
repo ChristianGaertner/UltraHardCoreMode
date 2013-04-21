@@ -1,0 +1,6 @@
+UltraHardCoreModeBukkit
+========================
+
+
+
+Description coming soon!
