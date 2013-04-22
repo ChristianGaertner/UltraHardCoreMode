@@ -38,26 +38,26 @@ public class HealCommandExecutor implements CommandExecutor {
         if (strings.length == 0) {
             
             if (!(cs instanceof Player)) {
-                cs.sendMessage(ChatColor.RED + "This command can only be run by a player.");
+                cs.sendMessage(ChatColor.RED + plugin.getConfig().getString("config.alerts.noplayer"));
                 return false;
             } else {
                 player = (Player) cs;
                 
                 //check if player is disabled
                 if (settings.isDisabled(player)) {
-                    player.sendMessage(ChatColor.GRAY + "You are currently disabled. Please enter UHC in order to be able to issue this command");
+                    player.sendMessage(ChatColor.GRAY + plugin.getConfig().getString("config.alerts.disabled"));
                     return true;
                 }
 
             }
             
         } else {
-            cs.sendMessage(ChatColor.RED + "Please check your input. Too many arguments.");
+            cs.sendMessage(ChatColor.RED + plugin.getConfig().getString("config.alerts.toomanyargs"));
             return false;
         }
         
         if (player.hasPermission("uhc.denyheal")) {
-            player.sendMessage(ChatColor.RED + "You do not have the permission to perform this command!");
+            player.sendMessage(ChatColor.RED + plugin.getConfig().getString("config.alerts.noperms"));
             return true;
         }
 
@@ -73,24 +73,24 @@ public class HealCommandExecutor implements CommandExecutor {
              int currentHealth = player.getHealth();
              
              if (currentHealth == 20) {
-                 player.sendMessage(ChatColor.GREEN + "You have full health already!");
+                 player.sendMessage(ChatColor.GREEN + plugin.getConfig().getString("config.alerts.already"));
                  return true;
              } else {
                 int newHealth = currentHealth + 5;
                 
                 if (newHealth >= 20) {
                     player.setHealth(20);
-                    player.sendMessage(ChatColor.GREEN + "You have full health now!");
+                    player.sendMessage(ChatColor.GREEN + plugin.getConfig().getString("config.alerts.full"));
                 } else {
                     player.setHealth(newHealth);
-                    player.sendMessage(ChatColor.GREEN + "You regained 2.5 Hearts!");
+                    player.sendMessage(ChatColor.GREEN + plugin.getConfig().getString("config.alerts.regain"));
                 }
             }
              
             removeInventoryItems(inventory, Material.APPLE, 1);
             removeInventoryItems(inventory, Material.GOLD_BLOCK, 1);
         } else {
-            player.sendMessage(ChatColor.RED + "You do not have enough items...!");
+            player.sendMessage(ChatColor.RED + plugin.getConfig().getString("config.alerts.noitem"));
         }
         
         return true;

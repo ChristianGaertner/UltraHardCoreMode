@@ -32,13 +32,13 @@ public class ToogleCommandExecutor implements CommandExecutor {
     public boolean onCommand(CommandSender cs, Command cmnd, String string, String[] strings) {
         if (strings.length == 0) {
             if (!(cs instanceof Player)) {
-                cs.sendMessage(ChatColor.RED + "This command can only be run by a player or add an option to the command.");
+                cs.sendMessage(ChatColor.RED + plugin.getConfig().getString("config.alerts.noplayerwithoptions"));
                 return false;
             } else {
                 Player player = (Player) cs;
                 
                 if (!player.hasPermission("uhc.toogle.*") || !player.hasPermission("uhc.toogle.self") || !player.hasPermission("uhc.toogle.remote")) {
-                    player.sendMessage(ChatColor.RED + "You do not have the permission to perform this command.");
+                    player.sendMessage(ChatColor.RED + plugin.getConfig().getString("config.alerts.noperms"));
                     return true;
                 }
                 
@@ -49,14 +49,14 @@ public class ToogleCommandExecutor implements CommandExecutor {
         } else if (strings.length == 1) {
             Player player = (Bukkit.getServer().getPlayer(strings[0]));
             if (player == null) {
-                cs.sendMessage(ChatColor.LIGHT_PURPLE + "Please choose a player who is online.");
+                cs.sendMessage(ChatColor.LIGHT_PURPLE + plugin.getConfig().getString("config.alerts.notonline"));
                 return false;
             }
             
             if (cs instanceof Player) {
                 Player sender = (Player) cs;
                 if (!sender.hasPermission("uhc.toogle.*") || !sender.hasPermission("uhc.toogle.remote")) {
-                    sender.sendMessage(ChatColor.RED + "You do not have the permission to perform this command.");
+                    sender.sendMessage(ChatColor.RED + plugin.getConfig().getString("config.alerts.noperms"));
                     return true;
                 }    
             }
@@ -67,17 +67,17 @@ public class ToogleCommandExecutor implements CommandExecutor {
             settings.setStatus(player, !settings.isDisabled(player));
             
             if (settings.isDisabled(player)) {
-                cs.sendMessage(ChatColor.GREEN + "Mode has been toogled! Now you aren' t in UHC Mode.");
-                player.sendMessage(ChatColor.RED + "Mode has been toogled by " + cs.getName() + "! Now you are in UHC Mode.");
+                cs.sendMessage(ChatColor.GREEN + plugin.getConfig().getString("config.alerts.toogle.disable"));
+                player.sendMessage(ChatColor.RED + String.format(plugin.getConfig().getString("config.alerts.toogle.disableremote"), cs.getName()));
             } else {
-                cs.sendMessage(ChatColor.RED + "Mode has been toogled! Now you are in UHC Mode.");
-                player.sendMessage(ChatColor.RED + "Mode has been toogled by " + cs.getName() + "! Now you are in UHC Mode.");
+                cs.sendMessage(ChatColor.RED + plugin.getConfig().getString("config.alerts.toogle.enable"));
+                player.sendMessage(ChatColor.RED + String.format(plugin.getConfig().getString("config.alerts.toogle.enableremote"), cs.getName()));
             }
             
             return true;
             
         } else {
-            cs.sendMessage(ChatColor.RED + "Please check your input. Too many arguments.");
+            cs.sendMessage(ChatColor.RED + plugin.getConfig().getString("config.alerts.toomanyargs"));
             return false;
         }
         
