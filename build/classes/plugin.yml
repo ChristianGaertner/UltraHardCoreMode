@@ -1,6 +1,6 @@
 name: UltraHardCoreMode
 main: io.github.christiangaertner.ultrahardcoremode.UltraHardCoreMode
-version: 0.1
+version: 0.9
 description: SethBlings UHC-Box ported to Craftbukkit
 commands:
   uhc-toogle:
@@ -8,7 +8,25 @@ commands:
     usage: /<command> [option:player|global]
   uhc-heal:
     description: Removes one gold ingot and an apple from your inventory and heals you by 2.5 hearts
-    usage: /<command> 
+    usage: Requieres 1 Apple and 1 Goldblock in your inventory \n/<command>
 permissions:
+  uhc.*:
+    description: Give access to all commands
+    children:
+      uhc.bypass: true
+      uhc.toogle.*: true
+      uhc.toogle.self: true
+      uhc.toogle.remote: true
+  uhc.toogle.*:
+    description: Allows the user to toogle UHC on or off for both them and others
+    children:
+      uhc.toogle.self: true
+      uhc.toogle.remote: true
+  uhc.toogle.self:
+    description: Allows the user to toogle UHC on or off
+  uhc.toogle.remote:
+    description: Allows the user to toogle UHC on or off for both them and others
   uhc.bypass:
     description: Bypasses the UHC Plugin
+  uhc.denyheal:
+    description: Permits the usage of the command /heal

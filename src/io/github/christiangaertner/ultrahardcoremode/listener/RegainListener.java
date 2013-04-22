@@ -15,11 +15,11 @@ import org.bukkit.event.entity.EntityRegainHealthEvent;
  *
  * @author Christian
  */
-public class RegenListener implements Listener {
+public class RegainListener implements Listener {
     
     private final Settings settings;
     
-    public RegenListener(Settings settings) {
+    public RegainListener(Settings settings) {
         this.settings = settings;
     }
 

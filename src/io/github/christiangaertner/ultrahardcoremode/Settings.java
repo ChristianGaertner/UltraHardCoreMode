@@ -17,11 +17,11 @@ public class Settings {
     private Set<Player> primary = new HashSet<Player>();
     
     public boolean isDisabled(Player player) {
-        return !primary.contains(player);
+        return primary.contains(player);
     }
     
     public void setStatus(Player player, boolean enabled) {
-        if (!enabled) {
+        if (enabled) {
             primary.add(player);
         } else {
             primary.remove(player);

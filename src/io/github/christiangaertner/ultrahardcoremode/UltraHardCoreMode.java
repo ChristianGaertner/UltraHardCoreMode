@@ -6,7 +6,7 @@ package io.github.christiangaertner.ultrahardcoremode;
 
 import io.github.christiangaertner.ultrahardcoremode.commandexecutor.HealCommandExecutor;
 import io.github.christiangaertner.ultrahardcoremode.commandexecutor.ToogleCommandExecutor;
-import io.github.christiangaertner.ultrahardcoremode.listener.RegenListener;
+import io.github.christiangaertner.ultrahardcoremode.listener.RegainListener;
 import java.util.logging.Logger;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -29,7 +29,7 @@ public class UltraHardCoreMode extends JavaPlugin{
         getCommand("uhc-heal")      .setExecutor(new HealCommandExecutor    (this, settings));
         
         //REGISTER EVENTS
-         getServer().getPluginManager().registerEvents(new RegenListener(settings), this);
+         getServer().getPluginManager().registerEvents(new RegainListener(settings), this);
     }
     
     @Override
