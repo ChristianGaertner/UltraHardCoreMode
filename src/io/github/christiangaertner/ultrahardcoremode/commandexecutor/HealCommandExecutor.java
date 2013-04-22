@@ -73,24 +73,25 @@ public class HealCommandExecutor implements CommandExecutor {
              int currentHealth = player.getHealth();
              
              if (currentHealth == 20) {
-                 player.sendMessage(ChatColor.GREEN + plugin.getConfig().getString("config.alerts.already"));
+                 player.sendMessage(ChatColor.GREEN + plugin.getConfig().getString("config.alerts.heal.already"));
                  return true;
              } else {
-                int newHealth = currentHealth + 5;
+                int newHealth = currentHealth + plugin.getConfig().getInt("config.settings.regain");
                 
                 if (newHealth >= 20) {
                     player.setHealth(20);
-                    player.sendMessage(ChatColor.GREEN + plugin.getConfig().getString("config.alerts.full"));
+                    player.sendMessage(ChatColor.GREEN + plugin.getConfig().getString("config.alerts.heal.full"));
                 } else {
                     player.setHealth(newHealth);
-                    player.sendMessage(ChatColor.GREEN + plugin.getConfig().getString("config.alerts.regain"));
+                    float hearts = (float) (((float)plugin.getConfig().getInt("config.settings.regain")) / 2.0);
+                    player.sendMessage(ChatColor.GREEN + String.format(plugin.getConfig().getString("config.alerts.heal.regain"), hearts));
                 }
             }
              
             removeInventoryItems(inventory, Material.APPLE, 1);
             removeInventoryItems(inventory, Material.GOLD_BLOCK, 1);
         } else {
-            player.sendMessage(ChatColor.RED + plugin.getConfig().getString("config.alerts.noitem"));
+            player.sendMessage(ChatColor.RED + plugin.getConfig().getString("config.alerts.heal.noitem"));
         }
         
         return true;

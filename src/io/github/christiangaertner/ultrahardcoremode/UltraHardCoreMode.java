@@ -40,7 +40,7 @@ public class UltraHardCoreMode extends JavaPlugin{
         //alerts for /heal
         config.addDefault("config.alerts.heal.already", "You have full health already!");
         config.addDefault("config.alerts.heal.full", "You have full health now!");
-        config.addDefault("config.alerts.heal.regain", "You regained 2.5 Hearts!");
+        config.addDefault("config.alerts.heal.regain", "You regained %s Hearts!");
         config.addDefault("config.alerts.heal.noitem", "You do not have enough items...!");
         
         //alerts for /toogle
@@ -49,6 +49,11 @@ public class UltraHardCoreMode extends JavaPlugin{
         config.addDefault("config.alerts.toogle.enable", "Mode has been toogled! Now you are in UHC Mode.");
         config.addDefault("config.alerts.toogle.enableremote", "Mode has been toogled by %s! Now you are in UHC Mode.");
         config.addDefault("config.alerts.heal.noitem", "You do not have enough items...!");
+        
+        
+        
+        //settings
+        config.addDefault("config.settings.regain", 5);
         
         config.options().copyDefaults(true);
         saveConfig();
@@ -63,7 +68,7 @@ public class UltraHardCoreMode extends JavaPlugin{
     }
     
     @Override
-    public void onDisable(){
+    public void onDisable(){       
     }
     
 

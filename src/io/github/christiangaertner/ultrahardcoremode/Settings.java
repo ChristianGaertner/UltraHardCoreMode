@@ -14,7 +14,7 @@ import org.bukkit.entity.Player;
  */
 public class Settings {
     
-    private Set<Player> primary = new HashSet<Player>();
+    public Set<Player> primary = new HashSet<Player>();
     
     public boolean isDisabled(Player player) {
         return primary.contains(player);
