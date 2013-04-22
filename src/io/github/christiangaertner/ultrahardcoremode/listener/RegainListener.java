@@ -17,7 +17,7 @@ import org.bukkit.event.entity.EntityRegainHealthEvent;
  */
 public class RegainListener implements Listener {
     
-    private final Settings settings;
+    private Settings settings;
     
     public RegainListener(Settings settings) {
         this.settings = settings;
