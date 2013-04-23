@@ -14,18 +14,29 @@ import org.bukkit.entity.Player;
  */
 public class Settings {
     
-    public Set<Player> primary = new HashSet<Player>();
+    private Set<String> primary = new HashSet<String>();
     
     public boolean isDisabled(Player player) {
-        return primary.contains(player);
+        String playerName = player.getName();
+        return primary.contains(playerName);
     }
     
     public void setStatus(Player player, boolean enabled) {
+        String playerName = player.getName();
+
         if (enabled) {
-            primary.add(player);
+            primary.add(playerName);
         } else {
-            primary.remove(player);
+            primary.remove(playerName);
         }
+    }
+    
+    public Set<String> getNames(){
+        return primary;
+    }
+    
+    public void initHashSet(Set<String> newSet) {
+        this.primary = newSet;
     }
     
 }

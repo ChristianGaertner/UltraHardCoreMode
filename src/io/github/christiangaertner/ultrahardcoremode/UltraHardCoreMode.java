@@ -4,8 +4,10 @@
  */
 package io.github.christiangaertner.ultrahardcoremode;
 
+import io.github.christiangaertner.ultrahardcoremode.file.Config;
 import io.github.christiangaertner.ultrahardcoremode.commandexecutor.HealCommandExecutor;
 import io.github.christiangaertner.ultrahardcoremode.commandexecutor.ToogleCommandExecutor;
+import io.github.christiangaertner.ultrahardcoremode.file.FlatFileDataBase;
 import io.github.christiangaertner.ultrahardcoremode.listener.RegainListener;
 import java.util.logging.Logger;
 import org.bukkit.Bukkit;
@@ -17,16 +19,23 @@ import org.bukkit.plugin.java.JavaPlugin;
  */
 public class UltraHardCoreMode extends JavaPlugin{
     
+    //own objects
     public Settings settings = new Settings();
     public Config config = new Config(this);
+    public FlatFileDataBase db = new FlatFileDataBase(this);
     
-    Logger log = Bukkit.getLogger();
+    //bukkit objects
+    public Logger log = Bukkit.getLogger();
+    
     
     @Override
     public void onEnable(){
-        //Config Stuff
-        config.setDefaults();
         
+        //DATABASE
+        db.initDataBase();
+        if (!db.initialStart) {
+            settings.initHashSet(db.loadPlayersDisabled());
+        }
         
         //REGISTER COMMANDS
         getCommand("uhc-toogle")    .setExecutor(new ToogleCommandExecutor  (this, settings));
@@ -37,7 +46,10 @@ public class UltraHardCoreMode extends JavaPlugin{
     }
     
     @Override
-    public void onDisable(){       
+    public void onDisable(){
+        //DATABASE
+        db.savePlayersDisabled(settings.getNames());
+        
     }
     
 

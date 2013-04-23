@@ -68,7 +68,7 @@ public class ToogleCommandExecutor implements CommandExecutor {
             
             if (settings.isDisabled(player)) {
                 cs.sendMessage(ChatColor.GREEN + plugin.getConfig().getString("config.alerts.toogle.disable"));
-                player.sendMessage(ChatColor.RED + String.format(plugin.getConfig().getString("config.alerts.toogle.disableremote"), cs.getName()));
+                player.sendMessage(ChatColor.GREEN + String.format(plugin.getConfig().getString("config.alerts.toogle.disableremote"), cs.getName()));
             } else {
                 cs.sendMessage(ChatColor.RED + plugin.getConfig().getString("config.alerts.toogle.enable"));
                 player.sendMessage(ChatColor.RED + String.format(plugin.getConfig().getString("config.alerts.toogle.enableremote"), cs.getName()));

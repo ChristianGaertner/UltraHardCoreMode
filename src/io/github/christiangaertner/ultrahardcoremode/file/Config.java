@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package io.github.christiangaertner.ultrahardcoremode;
+package io.github.christiangaertner.ultrahardcoremode.file;
 
+import io.github.christiangaertner.ultrahardcoremode.UltraHardCoreMode;
 import org.bukkit.configuration.file.FileConfiguration;
 
 /**
@@ -38,7 +39,7 @@ public class Config {
         
         //alerts for /toogle
         config.addDefault("config.alerts.toogle.disable", "Mode has been toogled! Now you aren' t in UHC Mode.");
-        config.addDefault("config.alerts.toogle.disableremote", "Mode has been toogled by %s! Now you are in UHC Mode.");
+        config.addDefault("config.alerts.toogle.disableremote", "Mode has been toogled by %s! Now you aren' t in UHC Mode.");
         config.addDefault("config.alerts.toogle.enable", "Mode has been toogled! Now you are in UHC Mode.");
         config.addDefault("config.alerts.toogle.enableremote", "Mode has been toogled by %s! Now you are in UHC Mode.");
         config.addDefault("config.alerts.heal.noitem", "You do not have enough items...!");
