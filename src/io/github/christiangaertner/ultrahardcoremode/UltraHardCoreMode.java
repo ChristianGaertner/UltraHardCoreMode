@@ -11,7 +11,6 @@ import io.github.christiangaertner.ultrahardcoremode.file.FlatFileDataBase;
 import io.github.christiangaertner.ultrahardcoremode.listener.RegainListener;
 import java.util.logging.Logger;
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -27,7 +26,7 @@ public class UltraHardCoreMode extends JavaPlugin{
     //own objects
     public Settings settings = new Settings();
     public Config config = new Config(this);
-    public FlatFileDataBase db = new FlatFileDataBase(this);
+    public FlatFileDataBase db = new FlatFileDataBase(this, config);
     
     
     @Override
@@ -40,11 +39,12 @@ public class UltraHardCoreMode extends JavaPlugin{
         }
         
         //REGISTER COMMANDS
-        getCommand("uhc-toogle")    .setExecutor(new ToogleCommandExecutor  (this, settings));
-        getCommand("uhc-heal")      .setExecutor(new HealCommandExecutor    (this, settings));
+        getCommand("uhc-toogle")    .setExecutor(new ToogleCommandExecutor  (this, settings, config));
+        getCommand("uhc-heal")      .setExecutor(new HealCommandExecutor    (this, settings, config));
+        getCommand("uhc-list")      .setExecutor(new HealCommandExecutor    (this, settings, config));
         
         //REGISTER EVENTS
-         getServer().getPluginManager().registerEvents(new RegainListener(settings), this);
+        getServer().getPluginManager().registerEvents(new RegainListener(settings), this);
     }
     
     @Override

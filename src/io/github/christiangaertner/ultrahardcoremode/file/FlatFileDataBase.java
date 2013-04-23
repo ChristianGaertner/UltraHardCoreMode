@@ -23,14 +23,16 @@ import org.bukkit.configuration.file.YamlConfiguration;
 public class FlatFileDataBase {
     
     private UltraHardCoreMode plugin;
+    private Config config;
     private FileConfiguration fc;
     /**
      * Just checks if this is the initial start of the plugin, for checking if we should try to load a database file
      */
     public boolean initialStart = false;
     
-    public FlatFileDataBase(UltraHardCoreMode plugin) {
+    public FlatFileDataBase(UltraHardCoreMode plugin, Config config) {
         this.plugin = plugin;
+        this.config = config;
     }
     
     public void initDataBase(){
@@ -41,8 +43,8 @@ public class FlatFileDataBase {
             this.initialStart = true;
         }
         
-        if (!(new File(plugin.getDataFolder(), "config.yml")).exists()) {
-            plugin.config.setDefaults();
+        if (!(new File(plugin.getDataFolder(), "/config.yml")).exists()) {
+            config.setDefaultConf();
         }
         
         if (!(new File(plugin.getDataFolder(), "/data")).exists()) {

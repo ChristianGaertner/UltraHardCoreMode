@@ -6,7 +6,7 @@ package io.github.christiangaertner.ultrahardcoremode.commandexecutor;
 
 import io.github.christiangaertner.ultrahardcoremode.Settings;
 import io.github.christiangaertner.ultrahardcoremode.UltraHardCoreMode;
-import org.bukkit.Bukkit;
+import io.github.christiangaertner.ultrahardcoremode.file.Config;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -24,10 +24,12 @@ public class HealCommandExecutor implements CommandExecutor {
  
     private UltraHardCoreMode plugin;
     private Settings          settings;
+    private Config              config;
  
-    public HealCommandExecutor(UltraHardCoreMode plugin, Settings settings) {
+    public HealCommandExecutor(UltraHardCoreMode plugin, Settings settings, Config config) {
             this.plugin = plugin;
             this.settings = settings;
+            this.config = config;
     }
 
     @Override
@@ -38,26 +40,26 @@ public class HealCommandExecutor implements CommandExecutor {
         if (strings.length == 0) {
             
             if (!(cs instanceof Player)) {
-                cs.sendMessage(ChatColor.RED + plugin.getConfig().getString("config.alerts.noplayer"));
+                cs.sendMessage(ChatColor.RED + config.config.getString("alerts.noplayer"));
                 return false;
             } else {
                 player = (Player) cs;
                 
                 //check if player is disabled
                 if (settings.isDisabled(player)) {
-                    player.sendMessage(ChatColor.GRAY + plugin.getConfig().getString("config.alerts.disabled"));
+                    player.sendMessage(ChatColor.GRAY + config.config.getString("alerts.disabled"));
                     return true;
                 }
 
             }
             
         } else {
-            cs.sendMessage(ChatColor.RED + plugin.getConfig().getString("config.alerts.toomanyargs"));
+            cs.sendMessage(ChatColor.RED + config.config.getString("alerts.toomanyargs"));
             return false;
         }
         
         if (player.hasPermission("uhc.denyheal")) {
-            player.sendMessage(ChatColor.RED + plugin.getConfig().getString("config.alerts.noperms"));
+            player.sendMessage(ChatColor.RED + config.config.getString("alerts.noperms"));
             return true;
         }
 
@@ -73,25 +75,25 @@ public class HealCommandExecutor implements CommandExecutor {
              int currentHealth = player.getHealth();
              
              if (currentHealth == 20) {
-                 player.sendMessage(ChatColor.GREEN + plugin.getConfig().getString("config.alerts.heal.already"));
+                 player.sendMessage(ChatColor.GREEN + config.config.getString("alerts.heal.already"));
                  return true;
              } else {
-                int newHealth = currentHealth + plugin.getConfig().getInt("config.settings.regain");
+                int newHealth = currentHealth + config.config.getInt("config.settings.regain");
                 
                 if (newHealth >= 20) {
                     player.setHealth(20);
-                    player.sendMessage(ChatColor.GREEN + plugin.getConfig().getString("config.alerts.heal.full"));
+                    player.sendMessage(ChatColor.GREEN + config.config.getString("config.alerts.heal.full"));
                 } else {
                     player.setHealth(newHealth);
-                    float hearts = (float) (((float)plugin.getConfig().getInt("config.settings.regain")) / 2.0);
-                    player.sendMessage(ChatColor.GREEN + String.format(plugin.getConfig().getString("config.alerts.heal.regain"), hearts));
+                    float hearts = (float) (((float)config.config.getInt("settings.regain")) / 2.0);
+                    player.sendMessage(ChatColor.GREEN + String.format(config.config.getString("alerts.heal.regain"), hearts));
                 }
             }
              
             removeInventoryItems(inventory, Material.APPLE, 1);
             removeInventoryItems(inventory, Material.GOLD_BLOCK, 1);
         } else {
-            player.sendMessage(ChatColor.RED + plugin.getConfig().getString("config.alerts.heal.noitem"));
+            player.sendMessage(ChatColor.RED + config.config.getString("alerts.heal.noitem"));
         }
         
         return true;

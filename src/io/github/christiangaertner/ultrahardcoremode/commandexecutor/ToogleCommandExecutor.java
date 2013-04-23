@@ -6,6 +6,7 @@ package io.github.christiangaertner.ultrahardcoremode.commandexecutor;
 
 import io.github.christiangaertner.ultrahardcoremode.Settings;
 import io.github.christiangaertner.ultrahardcoremode.UltraHardCoreMode;
+import io.github.christiangaertner.ultrahardcoremode.file.Config;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -21,24 +22,26 @@ public class ToogleCommandExecutor implements CommandExecutor {
  
     private UltraHardCoreMode   plugin;
     private Settings            settings;
+    private Config              config;
    
  
-    public ToogleCommandExecutor(UltraHardCoreMode plugin, Settings settings) {
+    public ToogleCommandExecutor(UltraHardCoreMode plugin, Settings settings, Config config) {
             this.plugin = plugin;
             this.settings = settings;
+            this.config = config;
     }
 
     @Override
     public boolean onCommand(CommandSender cs, Command cmnd, String string, String[] strings) {
         if (strings.length == 0) {
             if (!(cs instanceof Player)) {
-                cs.sendMessage(ChatColor.RED + plugin.getConfig().getString("config.alerts.noplayerwithoptions"));
+                cs.sendMessage(ChatColor.RED + config.config.getString("alerts.noplayerwithoptions"));
                 return false;
             } else {
                 Player player = (Player) cs;
                 
                 if (!player.hasPermission("uhc.toogle.*") || !player.hasPermission("uhc.toogle.self") || !player.hasPermission("uhc.toogle.remote")) {
-                    player.sendMessage(ChatColor.RED + plugin.getConfig().getString("config.alerts.noperms"));
+                    player.sendMessage(ChatColor.RED + config.config.getString("alerts.noperms"));
                     return true;
                 }
                 
@@ -49,14 +52,14 @@ public class ToogleCommandExecutor implements CommandExecutor {
         } else if (strings.length == 1) {
             Player player = (Bukkit.getServer().getPlayer(strings[0]));
             if (player == null) {
-                cs.sendMessage(ChatColor.LIGHT_PURPLE + plugin.getConfig().getString("config.alerts.notonline"));
+                cs.sendMessage(ChatColor.LIGHT_PURPLE + config.config.getString("alerts.notonline"));
                 return false;
             }
             
             if (cs instanceof Player) {
                 Player sender = (Player) cs;
                 if (!sender.hasPermission("uhc.toogle.*") || !sender.hasPermission("uhc.toogle.remote")) {
-                    sender.sendMessage(ChatColor.RED + plugin.getConfig().getString("config.alerts.noperms"));
+                    sender.sendMessage(ChatColor.RED + config.config.getString("alerts.noperms"));
                     return true;
                 }    
             }
@@ -67,17 +70,17 @@ public class ToogleCommandExecutor implements CommandExecutor {
             settings.setStatus(player, !settings.isDisabled(player));
             
             if (settings.isDisabled(player)) {
-                cs.sendMessage(ChatColor.GREEN + plugin.getConfig().getString("config.alerts.toogle.disable"));
-                player.sendMessage(ChatColor.GREEN + String.format(plugin.getConfig().getString("config.alerts.toogle.disableremote"), cs.getName()));
+                cs.sendMessage(ChatColor.GREEN + config.config.getString("alerts.toogle.disable"));
+                player.sendMessage(ChatColor.GREEN + String.format(config.config.getString("alerts.toogle.disableremote"), cs.getName()));
             } else {
-                cs.sendMessage(ChatColor.RED + plugin.getConfig().getString("config.alerts.toogle.enable"));
-                player.sendMessage(ChatColor.RED + String.format(plugin.getConfig().getString("config.alerts.toogle.enableremote"), cs.getName()));
+                cs.sendMessage(ChatColor.RED + config.config.getString("alerts.toogle.enable"));
+                player.sendMessage(ChatColor.RED + String.format(config.config.getString("alerts.toogle.enableremote"), cs.getName()));
             }
             
             return true;
             
         } else {
-            cs.sendMessage(ChatColor.RED + plugin.getConfig().getString("config.alerts.toomanyargs"));
+            cs.sendMessage(ChatColor.RED + config.config.getString("alerts.toomanyargs"));
             return false;
         }
         
