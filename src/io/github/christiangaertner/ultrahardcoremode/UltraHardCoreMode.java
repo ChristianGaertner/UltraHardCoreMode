@@ -11,6 +11,7 @@ import io.github.christiangaertner.ultrahardcoremode.file.FlatFileDataBase;
 import io.github.christiangaertner.ultrahardcoremode.listener.RegainListener;
 import java.util.logging.Logger;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -19,13 +20,14 @@ import org.bukkit.plugin.java.JavaPlugin;
  */
 public class UltraHardCoreMode extends JavaPlugin{
     
+    
+    //bukkit objects
+    public Logger log = Bukkit.getLogger();
+    
     //own objects
     public Settings settings = new Settings();
     public Config config = new Config(this);
     public FlatFileDataBase db = new FlatFileDataBase(this);
-    
-    //bukkit objects
-    public Logger log = Bukkit.getLogger();
     
     
     @Override

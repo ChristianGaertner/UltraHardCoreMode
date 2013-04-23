@@ -6,15 +6,15 @@ package io.github.christiangaertner.ultrahardcoremode.file;
 
 import io.github.christiangaertner.ultrahardcoremode.UltraHardCoreMode;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 
 /**
  *
@@ -23,6 +23,7 @@ import java.util.logging.Level;
 public class FlatFileDataBase {
     
     private UltraHardCoreMode plugin;
+    private FileConfiguration fc;
     /**
      * Just checks if this is the initial start of the plugin, for checking if we should try to load a database file
      */
@@ -52,10 +53,10 @@ public class FlatFileDataBase {
             (new File(plugin.getDataFolder(), "/data/disabled")).mkdir();
         }
         
-        if (!(new File(plugin.getDataFolder(), "/data/disabled/players.data")).exists()) {
+        if (!(new File(plugin.getDataFolder(), "/data/disabled/players.yml")).exists()) {
             
             try{
-                (new File(plugin.getDataFolder(), "/data/disabled/players.data")).createNewFile();
+                (new File(plugin.getDataFolder(), "/data/disabled/players.yml")).createNewFile();
             } catch(IOException e) {
                 plugin.log.log(Level.WARNING, "[UHC] Cannot create databasefile.");
             }
@@ -69,35 +70,40 @@ public class FlatFileDataBase {
     }
     
     @SuppressWarnings("unchecked")
-    public Set<String> loadPlayersDisabled(){
-        Set<String> players = new HashSet<String>();
-        try {
-            ObjectInputStream ois = new ObjectInputStream(new FileInputStream((plugin.getDataFolder() + "/data/disabled/players.data")));
-            if (ois.readObject() != null) {
-                players = (Set<String>) ois.readObject(); //unchecked... but no alternative, no harm in supressing.
-            }
-            ois.close();
+    public Set<String> loadPlayersDisabled(){      
+        Set<String> players;
             
-        } catch (IOException ex) {
-            plugin.log.log(Level.WARNING, "[UHC] Could not load disabled players from file.");
-        } catch (ClassNotFoundException ex) {
-            plugin.log.log(Level.WARNING, "[UHC] Could not load disabled players from file correctly.");
-        }
+        fc = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder() + "/data/disabled/players.yml"));
+
+        List<String> list = (List<String>) fc.getList("players-disabled");
+        
+        players = new HashSet(list);
+        
+        
         
         return players;
     }
     
     public void savePlayersDisabled(Set<String> players){
         try {
-            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream((plugin.getDataFolder() + "/data/disabled/players.data")));
-            oos.writeObject(players);
-            oos.flush();
-            oos.close();
+            
+            fc = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder() + "/data/disabled/players.yml"));
+            
+            
+            List<String> list = new ArrayList<String>();
+            
+            for (String p : players) {
+                list.add(p);
+            }
+            
+            fc.set("players-disabled", list);
+            fc.save(new File(plugin.getDataFolder() + "/data/disabled/players.yml"));
+            
             
         } catch (FileNotFoundException ex) {
-            plugin.log.log(Level.WARNING, "[UHC] Could not find databasefile.");
+            plugin.log.log(Level.WARNING, "[UHC] Cannot find databasefile.");
         } catch (IOException ex) {
-            plugin.log.log(Level.WARNING, "[UHC] Could not save disabled players to file.");
+            plugin.log.log(Level.WARNING, "[UHC] Cannot open databasefile.");
         }
         
     }
