@@ -18,13 +18,13 @@ import org.bukkit.entity.Player;
  *
  * @author Christian
  */
-public class ListCommandExecutor implements CommandExecutor {
+public class ResetConfigCommandExecutor implements CommandExecutor {
     
     private UltraHardCoreMode plugin;
     private Settings settings;
     private Config config;
     
-    public ListCommandExecutor(UltraHardCoreMode plugin, Settings settings, Config config) {
+    public ResetConfigCommandExecutor(UltraHardCoreMode plugin, Settings settings, Config config) {
         this.plugin = plugin;
         this.settings = settings;
         this.config = config;
@@ -42,21 +42,14 @@ public class ListCommandExecutor implements CommandExecutor {
             }
         }
         
-        Set<String> players = settings.getNames();
-        
-        
-        cs.sendMessage("---------------UHC---------------");
-        cs.sendMessage("--------Players Disabled---------");
-        
-        if (players.isEmpty()) {
-            cs.sendMessage("No player is disabled. All playing in UHC");
-            return true;
+        if (strings.length > 0) {
+            cs.sendMessage(ChatColor.RED + config.config.getString("alerts.toomanyargs"));
+            return false;
         }
         
-        for (String p : players) {
-            cs.sendMessage(p);
-        }
-        
+        cs.sendMessage(ChatColor.RED + config.config.getString("alerts.configreset"));
+
+
         return true;
     }
     

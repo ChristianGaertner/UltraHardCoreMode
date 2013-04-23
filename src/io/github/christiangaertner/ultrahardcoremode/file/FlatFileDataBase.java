@@ -36,7 +36,9 @@ public class FlatFileDataBase {
     }
     
     public void initDataBase(){
-
+        
+        //load config
+        config.load();
         
         if (!plugin.getDataFolder().exists()) {
             plugin.getDataFolder().mkdir();
@@ -87,6 +89,12 @@ public class FlatFileDataBase {
     }
     
     public void savePlayersDisabled(Set<String> players){
+        
+        //if no folder exists, the plugin may be deleted.
+        if (!(new File(plugin.getDataFolder(), "/data/disabled/players.yml")).exists()) {
+            return;
+        }
+        
         try {
             
             fc = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder() + "/data/disabled/players.yml"));

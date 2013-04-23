@@ -6,8 +6,11 @@ package io.github.christiangaertner.ultrahardcoremode;
 
 import io.github.christiangaertner.ultrahardcoremode.file.Config;
 import io.github.christiangaertner.ultrahardcoremode.commandexecutor.HealCommandExecutor;
+import io.github.christiangaertner.ultrahardcoremode.commandexecutor.ListCommandExecutor;
+import io.github.christiangaertner.ultrahardcoremode.commandexecutor.ResetConfigCommandExecutor;
 import io.github.christiangaertner.ultrahardcoremode.commandexecutor.ToogleCommandExecutor;
 import io.github.christiangaertner.ultrahardcoremode.file.FlatFileDataBase;
+import io.github.christiangaertner.ultrahardcoremode.listener.PlayerJoinListener;
 import io.github.christiangaertner.ultrahardcoremode.listener.RegainListener;
 import java.util.logging.Logger;
 import org.bukkit.Bukkit;
@@ -21,7 +24,7 @@ public class UltraHardCoreMode extends JavaPlugin{
     
     
     //bukkit objects
-    public Logger log = Bukkit.getLogger();
+    public static final Logger log = Bukkit.getLogger();
     
     //own objects
     public Settings settings = new Settings();
@@ -39,12 +42,14 @@ public class UltraHardCoreMode extends JavaPlugin{
         }
         
         //REGISTER COMMANDS
-        getCommand("uhc-toogle")    .setExecutor(new ToogleCommandExecutor  (this, settings, config));
-        getCommand("uhc-heal")      .setExecutor(new HealCommandExecutor    (this, settings, config));
-        getCommand("uhc-list")      .setExecutor(new HealCommandExecutor    (this, settings, config));
+        getCommand("uhc-toogle")        .setExecutor(new ToogleCommandExecutor          (this, settings, config));
+        getCommand("uhc-heal")          .setExecutor(new HealCommandExecutor            (this, settings, config));
+        getCommand("uhc-list")          .setExecutor(new ListCommandExecutor            (this, settings, config));
+        getCommand("uhc-resetconfig")   .setExecutor(new ResetConfigCommandExecutor     (this, settings, config));
         
         //REGISTER EVENTS
-        getServer().getPluginManager().registerEvents(new RegainListener(settings), this);
+        getServer().getPluginManager().registerEvents(new RegainListener        (settings), this);
+        getServer().getPluginManager().registerEvents(new PlayerJoinListener    (settings), this);
     }
     
     @Override

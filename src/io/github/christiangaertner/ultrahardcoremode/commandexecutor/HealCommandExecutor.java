@@ -24,7 +24,7 @@ public class HealCommandExecutor implements CommandExecutor {
  
     private UltraHardCoreMode plugin;
     private Settings          settings;
-    private Config              config;
+    private Config            config;
  
     public HealCommandExecutor(UltraHardCoreMode plugin, Settings settings, Config config) {
             this.plugin = plugin;

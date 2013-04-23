@@ -11,13 +11,16 @@ commands:
     usage: Requires 1 Apple and 1 Goldblock in your inventory /<command>
   uhc-list:
     description: Shows every player who is currently disabled in UHC
-    permission: uhc.list
+    usage: /<command>
+  uhc-resetconfig:
+    description: Resets the config to default values
     usage: /<command>
 permissions:
   uhc.*:
     description: Give access to all commands
     children:
       uhc.bypass: true
+      uhc.list: true
       uhc.toogle.*: true
       uhc.toogle.self: true
       uhc.toogle.remote: true
@@ -36,3 +39,5 @@ permissions:
     description: Permits the usage of the command /heal
   uhc.list:
     description: Allows to list every disabled player
+  uhc.resetconfig:
+    description: Allows to reset the config
