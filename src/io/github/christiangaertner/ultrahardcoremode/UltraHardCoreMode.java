@@ -10,6 +10,7 @@ import io.github.christiangaertner.ultrahardcoremode.commandexecutor.ListCommand
 import io.github.christiangaertner.ultrahardcoremode.commandexecutor.ResetConfigCommandExecutor;
 import io.github.christiangaertner.ultrahardcoremode.commandexecutor.ToogleCommandExecutor;
 import io.github.christiangaertner.ultrahardcoremode.file.FlatFileDataBase;
+import io.github.christiangaertner.ultrahardcoremode.listener.PlayerDeathListener;
 import io.github.christiangaertner.ultrahardcoremode.listener.PlayerJoinListener;
 import io.github.christiangaertner.ultrahardcoremode.listener.RegainListener;
 import java.util.logging.Logger;
@@ -48,8 +49,9 @@ public class UltraHardCoreMode extends JavaPlugin{
         getCommand("uhc-resetconfig")   .setExecutor(new ResetConfigCommandExecutor     (this, settings, config));
         
         //REGISTER EVENTS
-        getServer().getPluginManager().registerEvents(new RegainListener        (settings), this);
-        getServer().getPluginManager().registerEvents(new PlayerJoinListener    (settings), this);
+        getServer().getPluginManager().registerEvents(new RegainListener        (this, settings, config), this);
+        getServer().getPluginManager().registerEvents(new PlayerJoinListener    (this, settings, config), this);
+        getServer().getPluginManager().registerEvents(new PlayerDeathListener   (this, settings, config), this);
     }
     
     @Override

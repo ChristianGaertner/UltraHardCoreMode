@@ -7,6 +7,7 @@ package io.github.christiangaertner.ultrahardcoremode.commandexecutor;
 import io.github.christiangaertner.ultrahardcoremode.Settings;
 import io.github.christiangaertner.ultrahardcoremode.UltraHardCoreMode;
 import io.github.christiangaertner.ultrahardcoremode.file.Config;
+import java.util.logging.Level;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -78,7 +79,7 @@ public class HealCommandExecutor implements CommandExecutor {
                  player.sendMessage(ChatColor.GREEN + config.config.getString("alerts.heal.already"));
                  return true;
              } else {
-                int newHealth = currentHealth + config.config.getInt("config.settings.regain");
+                int newHealth = currentHealth + config.config.getInt("settings.regain");
                 
                 if (newHealth >= 20) {
                     player.setHealth(20);

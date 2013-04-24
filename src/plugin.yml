@@ -1,6 +1,6 @@
 name: UltraHardCoreMode
 main: io.github.christiangaertner.ultrahardcoremode.UltraHardCoreMode
-version: 0.9
+version: 1.0
 description: SethBlings UHC-Box ported to Craftbukkit
 commands:
   uhc-toogle:

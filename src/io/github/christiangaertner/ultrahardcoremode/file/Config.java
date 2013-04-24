@@ -43,7 +43,10 @@ public class Config {
         config.set("alerts.noperms", "You do not have the permission to perform this command!");
         config.set("alerts.notonline", "Please choose a player who is online.");
         config.set("alerts.configreset", "The configuration has been resetted.");
+        config.set("alerts.banned", "%s died and banned from the server.");
+        config.set("alerts.banned-reason", "BANNED: You died on this UltraHardCore Mode enabled server.");
         config.set("alerts.disabled", "You are currently disabled. Please enter UHC in order to be able to issue this command.");
+        config.set("alerts.no-potions", "Potions won' t help you...");
         
         //alerts for /heal
         config.set("alerts.heal.already", "You have full health already!");
@@ -61,7 +64,7 @@ public class Config {
         
         //settings
         config.set("settings.regain", 5);
-        config.set("settings.password", "yoursecretpasswordhere");
+        config.set("settings.ban-on-death", true);
         
 //        config.options().copyDefaults(true);
         try {

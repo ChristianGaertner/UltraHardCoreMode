@@ -5,11 +5,15 @@
 package io.github.christiangaertner.ultrahardcoremode.listener;
 
 import io.github.christiangaertner.ultrahardcoremode.Settings;
+import io.github.christiangaertner.ultrahardcoremode.UltraHardCoreMode;
+import io.github.christiangaertner.ultrahardcoremode.file.Config;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
+import org.bukkit.event.entity.EntityRegainHealthEvent.RegainReason;
 
 /**
  *
@@ -17,10 +21,14 @@ import org.bukkit.event.entity.EntityRegainHealthEvent;
  */
 public class RegainListener implements Listener {
     
+    private UltraHardCoreMode plugin;
     private Settings settings;
+    private Config config;
     
-    public RegainListener(Settings settings) {
+    public RegainListener(UltraHardCoreMode plugin, Settings settings, Config config) {
+        this.plugin = plugin;
         this.settings = settings;
+        this.config = config;
     }
 
     
@@ -40,6 +48,10 @@ public class RegainListener implements Listener {
         
         if (settings.isDisabled(player)) {
             return;
+        }
+        
+        if (event.getRegainReason() == RegainReason.MAGIC || event.getRegainReason() == RegainReason.MAGIC_REGEN) {
+            player.sendMessage(ChatColor.LIGHT_PURPLE + config.config.getString("alerts.no-potions"));
         }
         
         
