@@ -1,1 +1,5 @@
 nbproject/
+build.xml
+build/
+manifest.mf
+res/
