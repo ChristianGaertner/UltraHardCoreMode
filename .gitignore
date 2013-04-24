@@ -3,3 +3,5 @@ build.xml
 build/
 manifest.mf
 res/
+dist/README.TXT
+dist/lib/
