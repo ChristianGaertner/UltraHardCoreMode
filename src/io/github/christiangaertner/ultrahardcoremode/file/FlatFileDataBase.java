@@ -67,6 +67,16 @@ public class FlatFileDataBase {
             
         }
         
+        if (!(new File(plugin.getDataFolder(), "/data/disabled/global.yml")).exists()) {
+            
+            try{
+                (new File(plugin.getDataFolder(), "/data/disabled/global.yml")).createNewFile();
+            } catch(IOException e) {
+                plugin.log.log(Level.WARNING, "[UHC] Cannot create databasefile.");
+            }
+            
+        }
+        
         //just for saftey
         plugin.reloadConfig();
         
@@ -108,6 +118,44 @@ public class FlatFileDataBase {
             
             fc.set("players-disabled", list);
             fc.save(new File(plugin.getDataFolder() + "/data/disabled/players.yml"));
+            
+            
+        } catch (FileNotFoundException ex) {
+            plugin.log.log(Level.WARNING, "[UHC] Cannot find databasefile.");
+        } catch (IOException ex) {
+            plugin.log.log(Level.WARNING, "[UHC] Cannot open databasefile.");
+        }
+        
+    }
+    
+    @SuppressWarnings("unchecked")
+    public boolean loadGlobalStatus(){      
+            
+        fc = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder() + "/data/disabled/global.yml"));
+
+        
+        boolean status = fc.getBoolean("global");
+        
+        status = !status;
+        
+        return status;
+    }
+    
+    public void saveGlobalStatus(boolean status){
+        
+        //if no folder exists, the plugin may be deleted.
+        if (!(new File(plugin.getDataFolder(), "/data/disabled/global.yml")).exists()) {
+            return;
+        }
+        
+        try {
+            
+            fc = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder() + "/data/disabled/global.yml"));
+            
+            
+            
+            fc.set("global", !status);
+            fc.save(new File(plugin.getDataFolder() + "/data/disabled/global.yml"));
             
             
         } catch (FileNotFoundException ex) {

@@ -34,6 +34,10 @@ public class PlayerDeathListener implements Listener{
     @EventHandler(priority = EventPriority.HIGH)
     public void onPlayerDeathEvent(PlayerDeathEvent event) {
         
+        if (!settings.globalStatus()) {
+            return;
+        }
+        
         if (!config.config.getBoolean("settings.ban-on-death")) {
             return;
         }

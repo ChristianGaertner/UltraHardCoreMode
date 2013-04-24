@@ -34,6 +34,12 @@ public class ToogleCommandExecutor implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender cs, Command cmnd, String string, String[] strings) {
         if (strings.length == 0) {
+            
+            if (!settings.globalStatus()) {
+                cs.sendMessage(ChatColor.RED + config.config.getString("alerts.uhcglobalofferror"));
+                return true;
+            }
+            
             if (!(cs instanceof Player)) {
                 cs.sendMessage(ChatColor.RED + config.config.getString("alerts.noplayerwithoptions"));
                 return false;
@@ -46,15 +52,11 @@ public class ToogleCommandExecutor implements CommandExecutor {
                 }
                 
                 
+                
                 settings.setStatus(player, !settings.isDisabled(player));
                 return true;
             } 
         } else if (strings.length == 1) {
-            Player player = (Bukkit.getServer().getPlayer(strings[0]));
-            if (player == null) {
-                cs.sendMessage(ChatColor.LIGHT_PURPLE + config.config.getString("alerts.notonline"));
-                return false;
-            }
             
             if (cs instanceof Player) {
                 Player sender = (Player) cs;
@@ -62,7 +64,32 @@ public class ToogleCommandExecutor implements CommandExecutor {
                     sender.sendMessage(ChatColor.RED + config.config.getString("alerts.noperms"));
                     return true;
                 }    
+            }            
+            
+            //global on/off switch thing
+            if (strings[0].equalsIgnoreCase("global")) {
+                settings.setGlobalStatus(!settings.globalStatus());
+                
+                if (settings.globalStatus()) {
+                    plugin.getServer().broadcastMessage(ChatColor.RED + "[UHC] " + config.config.getString("alerts.uhcglobalon"));
+                } else {
+                    plugin.getServer().broadcastMessage(ChatColor.GREEN + "[UHC] " + config.config.getString("alerts.uhcglobaloff"));                    
+                }
+                
+                return true;
             }
+            
+            if (!settings.globalStatus()) {
+                cs.sendMessage(ChatColor.RED + config.config.getString("alerts.uhcglobalofferror"));
+                return true;
+            }
+            
+            Player player = (Bukkit.getServer().getPlayer(strings[0]));
+            if (player == null) {
+                cs.sendMessage(ChatColor.LIGHT_PURPLE + config.config.getString("alerts.notonline"));
+                return false;
+            }
+            
             
             
             

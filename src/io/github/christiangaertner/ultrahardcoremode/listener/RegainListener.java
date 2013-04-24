@@ -35,6 +35,10 @@ public class RegainListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerRegainHealth(EntityRegainHealthEvent event) {
         
+        if (!settings.globalStatus()) {
+            return;
+        }
+        
         if(!(event.getEntity() instanceof Player)) {
             return; //we only want to affect players
         }
@@ -51,7 +55,7 @@ public class RegainListener implements Listener {
         }
         
         if (event.getRegainReason() == RegainReason.MAGIC || event.getRegainReason() == RegainReason.MAGIC_REGEN) {
-            player.sendMessage(ChatColor.LIGHT_PURPLE + config.config.getString("alerts.no-potions"));
+            player.sendMessage(ChatColor.LIGHT_PURPLE + config.config.getString("alerts.nopotions"));
         }
         
         

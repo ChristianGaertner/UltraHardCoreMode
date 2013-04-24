@@ -44,12 +44,16 @@ public class ListCommandExecutor implements CommandExecutor {
         
         Set<String> players = settings.getNames();
         
+        if (!settings.globalStatus()) {
+            cs.sendMessage(ChatColor.RED + config.config.getString("alerts.uhcglobalofferror"));
+            return true;
+        }
         
         cs.sendMessage("---------------UHC---------------");
         cs.sendMessage("--------Players Disabled---------");
         
         if (players.isEmpty()) {
-            cs.sendMessage("No player is disabled. All playing in UHC");
+            cs.sendMessage(config.config.getString("alerts.nodisabledplayers"));
             return true;
         }
         

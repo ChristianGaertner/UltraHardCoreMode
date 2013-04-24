@@ -40,6 +40,7 @@ public class UltraHardCoreMode extends JavaPlugin{
         db.initDataBase();
         if (!db.initialStart) {
             settings.initHashSet(db.loadPlayersDisabled());
+            settings.setGlobalStatus(db.loadGlobalStatus());
         }
         
         //REGISTER COMMANDS
@@ -58,6 +59,7 @@ public class UltraHardCoreMode extends JavaPlugin{
     public void onDisable(){
         //DATABASE
         db.savePlayersDisabled(settings.getNames());
+        db.saveGlobalStatus(settings.globalStatus());
         
     }
     

@@ -7,7 +7,6 @@ package io.github.christiangaertner.ultrahardcoremode.commandexecutor;
 import io.github.christiangaertner.ultrahardcoremode.Settings;
 import io.github.christiangaertner.ultrahardcoremode.UltraHardCoreMode;
 import io.github.christiangaertner.ultrahardcoremode.file.Config;
-import java.util.logging.Level;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -35,6 +34,12 @@ public class HealCommandExecutor implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender cs, Command cmnd, String string, String[] strings) {
+        
+        if (!settings.globalStatus()) {
+            cs.sendMessage(ChatColor.RED + config.config.getString("alerts.uhcglobalofferror"));
+            return true;
+        }
+        
         
         Player player;
         

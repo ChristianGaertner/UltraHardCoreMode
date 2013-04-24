@@ -46,7 +46,11 @@ public class Config {
         config.set("alerts.banned", "%s died and banned from the server.");
         config.set("alerts.banned-reason", "BANNED: You died on this UltraHardCore Mode enabled server.");
         config.set("alerts.disabled", "You are currently disabled. Please enter UHC in order to be able to issue this command.");
-        config.set("alerts.no-potions", "Potions won' t help you...");
+        config.set("alerts.nodisabledplayers", "No player is disabled. All playing in UHC");
+        config.set("alerts.nopotions", "Potions do not help you...");
+        config.set("alerts.uhcglobalon", "UltraHardCore is globally active on this server.");
+        config.set("alerts.uhcglobaloff", "UltraHardCore is globally disabled on this server.");
+        config.set("alerts.uhcglobalofferror", "UHC is disabled globally! Use /uhc-toogle global to turn it back on!");
         
         //alerts for /heal
         config.set("alerts.heal.already", "You have full health already!");

@@ -15,7 +15,13 @@ import org.bukkit.entity.Player;
 public class Settings {
     
     private Set<String> primary = new HashSet<String>();
+    private boolean enabled;
+
+    public Settings() {
+        this.enabled = true;
+    }
     
+    //DISABLE/ENABLE PLAYER START---
     public boolean isDisabled(Player player) {
         String playerName = player.getName();
         return primary.contains(playerName);
@@ -38,5 +44,17 @@ public class Settings {
     public void initHashSet(Set<String> newSet) {
         this.primary = newSet;
     }
+    //DISABLE/ENABLE PLAYER END---
+    
+    //DISABLE/ENABLE GLOBAL START---
+    
+    public void setGlobalStatus(boolean newStatus) {
+        enabled = newStatus;
+    }
+    
+    public boolean globalStatus(){
+        return enabled;
+    }
+    //DISABLE/ENABLE GLOBAL END---
     
 }

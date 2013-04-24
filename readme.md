@@ -28,12 +28,13 @@ Features of this plugin
 * Dis-/enable "Ban on Death"
 * Disabled players are stored in easy editable flatfile database (YAML)
 * Permissions for bypassing the plugin
+* Switch plugin on or off with simple command (or via config)
 
 Commands
 ========================
 * uhc-heal
 	* (Heals you by certain amount of hearts, requires 1 apple and gold block)
-* uhc-toogle [option:player]
+* uhc-toogle [option:player|global]
 	* (Toogles UHC on or off for the command executor or the player attached)
 * uhc-list
 	* (List all disabled players)
@@ -61,7 +62,7 @@ Permissions
 TODO
 ========================
 * Add option to configure items needed for /heal
-* Make a global on/off switch
+* Make a global on/off switch **DONE**
 * We' ll see :D
 
 OpenSource
