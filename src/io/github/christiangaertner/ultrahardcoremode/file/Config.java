@@ -61,8 +61,10 @@ public class Config {
         
         //alerts for /toogle
         config.set("alerts.toogle.disable", "Mode has been toogled! Now the player isn' t in UHC Mode.");
+        config.set("alerts.toogle.disableself", "Mode has been toogled! Now you aren' t in UHC Mode.");
         config.set("alerts.toogle.disableremote", "Mode has been toogled by %s! Now you aren' t in UHC Mode.");
         config.set("alerts.toogle.enable", "Mode has been toogled! Now the player is in UHC Mode.");
+        config.set("alerts.toogle.enableself", "Mode has been toogled! Now you are in UHC Mode.");
         config.set("alerts.toogle.enableremote", "Mode has been toogled by %s! Now you are in UHC Mode.");
         config.set("alerts.heal.noitem", "You do not have enough items...!");
         

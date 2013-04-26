@@ -59,6 +59,11 @@ public class ToogleCommandExecutor implements CommandExecutor {
                 
                 
                 settings.setStatus(player, !settings.isDisabled(player));
+                if (settings.isDisabled(player)) {
+                    player.sendMessage(ChatColor.GREEN + config.config.getString("alerts.toogle.disableself"));
+                } else {
+                    player.sendMessage(ChatColor.RED + config.config.getString("alerts.toogle.enableself"));
+                }
                 return true;
             } 
         } else if (strings.length == 1) {
