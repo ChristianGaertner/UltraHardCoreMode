@@ -1,7 +1,7 @@
 name: UltraHardCoreMode
 main: io.github.christiangaertner.ultrahardcoremode.UltraHardCoreMode
 author: DaGardnerDev
-version: 1.1
+version: 1.1.1
 description: SethBlings UHC-Box ported to Craftbukkit
 commands:
   uhc-toogle:

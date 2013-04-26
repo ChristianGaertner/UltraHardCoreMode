@@ -12,6 +12,8 @@ import io.github.christiangaertner.ultrahardcoremode.commandexecutor.ToogleComma
 import io.github.christiangaertner.ultrahardcoremode.file.FlatFileDataBase;
 import io.github.christiangaertner.ultrahardcoremode.listener.PlayerDeathListener;
 import io.github.christiangaertner.ultrahardcoremode.listener.RegainListener;
+import java.io.IOException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -34,6 +36,13 @@ public class UltraHardCoreMode extends JavaPlugin{
     
     @Override
     public void onEnable(){
+        try {
+            //METRICS
+            Metrics metrics = new Metrics(this);
+            metrics.start();
+        } catch (IOException ex) {
+             log.log(Level.WARNING, "[UHC] Cannot submit to McMetrics.");
+        }
         
         //DATABASE
         db.initDataBase();
