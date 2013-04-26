@@ -20,6 +20,7 @@ I thought, that this is a great idea and with the possibilities of CraftBukkit r
 
 Features of this plugin
 ========================
+* MulitWorld Support (dis- or enable plugin in specific world(s))
 * Every output by the plugin is configurable thru the config.yml
 * Toogle plugin on or off for yourself or any other plugin
 * List disabled plugins
@@ -29,6 +30,11 @@ Features of this plugin
 * Disabled players are stored in easy editable flatfile database (YAML)
 * Permissions for bypassing the plugin
 * Switch plugin on or off with simple command (or via config)
+
+
+**Warning**:  
+Data usage notice: This plugin DOES collect anonymous usage data. This is only toggleable after 1st launch, so if you do not approve of this, don't use the plugin. The data collected is used to present the following information: *coming soon*
+
 
 Commands
 ========================
@@ -61,10 +67,19 @@ Permissions
 
 TODO
 ========================
+* Remove "testing code" (testing code = change join message for my minecraft account ;) **DONE**
 * Add option to configure items needed for /heal
+* Multiworld support **DONE**
 * Make a global on/off switch **DONE**
 * We' ll see :D
 
 OpenSource
 ========================
-This project is opensource! UltraHardCoreMode on GitHub
+This project is opensource!
+
+[UltraHardCoreMode on GitHub]("https://github.com/ChristianGaertner/UltraHardCoreMode")  
+[UltraHardCoreMode on SourceForge]("https://sourceforge.net/projects/uhc-mode/")  
+In this repo on GitHub is the latest dev build as well (at dist/UltraHardCoreMode.jar)  
+On SourceForge are all stable versions.  
+
+
