@@ -57,6 +57,18 @@ public class FlatFileDataBase {
             (new File(plugin.getDataFolder(), "/data/disabled")).mkdir();
         }
         
+        if (!(new File(plugin.getDataFolder(), "/worlds.yml")).exists()) {
+            
+            try{
+                (new File(plugin.getDataFolder(), "/worlds.yml")).createNewFile();
+                seedWorldsFile();
+                
+            } catch(IOException e) {
+                plugin.log.log(Level.WARNING, "[UHC] Cannot create databasefile.");
+            }
+            
+        }
+        
         if (!(new File(plugin.getDataFolder(), "/data/disabled/players.yml")).exists()) {
             
             try{
@@ -79,6 +91,35 @@ public class FlatFileDataBase {
         
         //just for saftey
         plugin.reloadConfig();
+        
+        
+    }
+    
+    private void seedWorldsFile() {
+        //if no folder exists, the plugin may be deleted.
+        if (!(new File(plugin.getDataFolder(), "/worlds.yml")).exists()) {
+            return;
+        }
+        
+        try {
+            
+            fc = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder() + "/worlds.yml"));
+            
+            
+            List<String> worlds = new ArrayList<String>();
+            
+            worlds.add("world_name_here");
+            
+            fc.set("whitelist", false);
+            fc.set("worlds", worlds);
+            fc.save(new File(plugin.getDataFolder() + "/worlds.yml"));
+            
+            
+        } catch (FileNotFoundException ex) {
+            plugin.log.log(Level.WARNING, "[UHC] Cannot find databasefile.");
+        } catch (IOException ex) {
+            plugin.log.log(Level.WARNING, "[UHC] Cannot open databasefile.");
+        }
         
         
     }
@@ -128,7 +169,7 @@ public class FlatFileDataBase {
         
     }
     
-    @SuppressWarnings("unchecked")
+
     public boolean loadGlobalStatus(){      
             
         fc = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder() + "/data/disabled/global.yml"));
@@ -164,5 +205,25 @@ public class FlatFileDataBase {
             plugin.log.log(Level.WARNING, "[UHC] Cannot open databasefile.");
         }
         
+    }
+    
+    @SuppressWarnings("unchecked")
+    public Set<String> loadWorlds() {
+        
+        Set<String> worlds;
+        fc = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder() + "/worlds.yml"));
+        
+        List<String> list = (List<String>) fc.getList("worlds");
+        
+        worlds = new HashSet(list);
+        
+        return worlds;
+    }
+    
+    public boolean loadWorldMode() {
+        fc = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder() + "/worlds.yml"));
+        
+        boolean whitelist = fc.getBoolean("whitelist");
+        return whitelist;
     }
 }

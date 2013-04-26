@@ -15,10 +15,13 @@ import org.bukkit.entity.Player;
 public class Settings {
     
     private Set<String> primary = new HashSet<String>();
+    private Set<String> worlds = new HashSet<String>();
+    private boolean world_whitelist;
     private boolean enabled;
 
     public Settings() {
         this.enabled = true;
+        this.world_whitelist = false;
     }
     
     //DISABLE/ENABLE PLAYER START---
@@ -41,7 +44,7 @@ public class Settings {
         return primary;
     }
     
-    public void initHashSet(Set<String> newSet) {
+    public void initHashSetPlayers(Set<String> newSet) {
         this.primary = newSet;
     }
     //DISABLE/ENABLE PLAYER END---
@@ -56,5 +59,34 @@ public class Settings {
         return enabled;
     }
     //DISABLE/ENABLE GLOBAL END---
+    
+    //MULTIWORLD STUFF START---
+    
+    public boolean checkWorld(String world) {
+        if (world_whitelist) {
+           if (worlds.contains(world)) {
+            return true;
+            }
+        
+            return false;
+            
+        } else {
+            if (worlds.contains(world)) {
+                return false;
+            }
+            return true;
+        }
+
+    }
+    
+    public void initHashSetWorlds(Set<String> newSet) {
+        this.worlds = newSet;
+    }
+    
+    public void initWorldListMode(boolean whitelist) {
+        this.world_whitelist = whitelist;
+    }
+    
+    //MULTIWORLD STUFF END---
     
 }

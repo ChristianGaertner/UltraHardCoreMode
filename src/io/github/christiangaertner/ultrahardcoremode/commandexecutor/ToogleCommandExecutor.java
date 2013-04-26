@@ -51,6 +51,11 @@ public class ToogleCommandExecutor implements CommandExecutor {
                     return true;
                 }
                 
+                if (!settings.checkWorld(player.getWorld().getName())) {
+                    player.sendMessage(ChatColor.RED + config.config.getString("alerts.worlddisabled"));
+                    return true;
+                }
+                
                 
                 
                 settings.setStatus(player, !settings.isDisabled(player));
@@ -90,7 +95,10 @@ public class ToogleCommandExecutor implements CommandExecutor {
                 return false;
             }
             
-            
+            if (!settings.checkWorld(player.getWorld().getName())) {
+                cs.sendMessage(ChatColor.RED + config.config.getString("alerts.worlddisabled"));
+                return true;
+            }
             
             
             

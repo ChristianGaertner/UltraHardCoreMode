@@ -11,7 +11,6 @@ import io.github.christiangaertner.ultrahardcoremode.commandexecutor.ResetConfig
 import io.github.christiangaertner.ultrahardcoremode.commandexecutor.ToogleCommandExecutor;
 import io.github.christiangaertner.ultrahardcoremode.file.FlatFileDataBase;
 import io.github.christiangaertner.ultrahardcoremode.listener.PlayerDeathListener;
-import io.github.christiangaertner.ultrahardcoremode.listener.PlayerJoinListener;
 import io.github.christiangaertner.ultrahardcoremode.listener.RegainListener;
 import java.util.logging.Logger;
 import org.bukkit.Bukkit;
@@ -39,7 +38,9 @@ public class UltraHardCoreMode extends JavaPlugin{
         //DATABASE
         db.initDataBase();
         if (!db.initialStart) {
-            settings.initHashSet(db.loadPlayersDisabled());
+            settings.initHashSetPlayers(db.loadPlayersDisabled());
+            settings.initHashSetWorlds(db.loadWorlds());
+            settings.initWorldListMode(db.loadWorldMode());
             settings.setGlobalStatus(db.loadGlobalStatus());
         }
         
@@ -51,7 +52,6 @@ public class UltraHardCoreMode extends JavaPlugin{
         
         //REGISTER EVENTS
         getServer().getPluginManager().registerEvents(new RegainListener        (this, settings, config), this);
-        getServer().getPluginManager().registerEvents(new PlayerJoinListener    (this, settings, config), this);
         getServer().getPluginManager().registerEvents(new PlayerDeathListener   (this, settings, config), this);
     }
     

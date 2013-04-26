@@ -51,6 +51,7 @@ public class Config {
         config.set("alerts.uhcglobalon", "UltraHardCore is globally active on this server.");
         config.set("alerts.uhcglobaloff", "UltraHardCore is globally disabled on this server.");
         config.set("alerts.uhcglobalofferror", "UHC is disabled globally! Use /uhc-toogle global to turn it back on!");
+        config.set("alerts.worlddisabled", "UHC is disabled in this world!");
         
         //alerts for /heal
         config.set("alerts.heal.already", "You have full health already!");

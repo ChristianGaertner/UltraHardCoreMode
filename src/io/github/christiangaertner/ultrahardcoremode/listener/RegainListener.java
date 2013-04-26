@@ -46,6 +46,10 @@ public class RegainListener implements Listener {
         //get Player
         Player player = (Player) event.getEntity();
         
+        if (!settings.checkWorld(player.getWorld().getName())) {
+            return;
+        }
+        
         if (player.hasPermission("uhc.bypass")) {
             return;
         }

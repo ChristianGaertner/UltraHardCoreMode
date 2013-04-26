@@ -64,11 +64,17 @@ public class HealCommandExecutor implements CommandExecutor {
             return false;
         }
         
+        
+        if (!settings.checkWorld(player.getWorld().getName())) {
+            player.sendMessage(ChatColor.RED + config.config.getString("alerts.worlddisabled"));
+            return true;
+        }
+        
         if (player.hasPermission("uhc.denyheal")) {
             player.sendMessage(ChatColor.RED + config.config.getString("alerts.noperms"));
             return true;
         }
-
+        
 
         
         PlayerInventory inventory = player.getInventory();
@@ -88,7 +94,7 @@ public class HealCommandExecutor implements CommandExecutor {
                 
                 if (newHealth >= 20) {
                     player.setHealth(20);
-                    player.sendMessage(ChatColor.GREEN + config.config.getString("config.alerts.heal.full"));
+                    player.sendMessage(ChatColor.GREEN + config.config.getString("alerts.heal.full"));
                 } else {
                     player.setHealth(newHealth);
                     float hearts = (float) (((float)config.config.getInt("settings.regain")) / 2.0);
