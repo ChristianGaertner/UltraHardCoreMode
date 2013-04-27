@@ -63,7 +63,9 @@ public class RegainListener implements Listener {
         }
         
         
-        
+        if (event.isCancelled()) {
+            return;
+        }
         event.setCancelled(true);
     }
 }

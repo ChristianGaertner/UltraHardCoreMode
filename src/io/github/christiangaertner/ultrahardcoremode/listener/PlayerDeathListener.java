@@ -38,11 +38,17 @@ public class PlayerDeathListener implements Listener{
             return;
         }
         
+        Player player = event.getEntity().getPlayer();
+        
+        
+        if (config.config.getBoolean("settings.permit-world-access-on-death")) {
+            settings.banFromWorld(player.getName(), player.getLocation().getWorld().getName());
+        }
+        
         if (!config.config.getBoolean("settings.ban-on-death")) {
             return;
         }
-        
-        Player player = event.getEntity();
+           
         
         player.setBanned(true);
 

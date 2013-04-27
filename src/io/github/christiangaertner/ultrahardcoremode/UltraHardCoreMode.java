@@ -11,6 +11,7 @@ import io.github.christiangaertner.ultrahardcoremode.commandexecutor.ResetConfig
 import io.github.christiangaertner.ultrahardcoremode.commandexecutor.ToogleCommandExecutor;
 import io.github.christiangaertner.ultrahardcoremode.file.FlatFileDataBase;
 import io.github.christiangaertner.ultrahardcoremode.listener.PlayerDeathListener;
+import io.github.christiangaertner.ultrahardcoremode.listener.PlayerTeleportListener;
 import io.github.christiangaertner.ultrahardcoremode.listener.RegainListener;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -50,8 +51,10 @@ public class UltraHardCoreMode extends JavaPlugin{
             settings.initHashSetPlayers(db.loadPlayersDisabled());
             settings.initHashSetWorlds(db.loadWorlds());
             settings.initWorldListMode(db.loadWorldMode());
-            settings.setGlobalStatus(db.loadGlobalStatus());
+            settings.initBannedWorlds(db.loadBannedWorlds());
+            settings.setGlobalStatus(db.loadGlobalStatus());  
         }
+        
         
         //REGISTER COMMANDS
         getCommand("uhc-toogle")        .setExecutor(new ToogleCommandExecutor          (this, settings, config));
@@ -60,8 +63,9 @@ public class UltraHardCoreMode extends JavaPlugin{
         getCommand("uhc-resetconfig")   .setExecutor(new ResetConfigCommandExecutor     (this, settings, config));
         
         //REGISTER EVENTS
-        getServer().getPluginManager().registerEvents(new RegainListener        (this, settings, config), this);
-        getServer().getPluginManager().registerEvents(new PlayerDeathListener   (this, settings, config), this);
+        getServer().getPluginManager().registerEvents(new RegainListener            (this, settings, config), this);
+        getServer().getPluginManager().registerEvents(new PlayerDeathListener       (this, settings, config), this);
+        getServer().getPluginManager().registerEvents(new PlayerTeleportListener    (this, settings, config), this);
     }
     
     @Override
@@ -69,6 +73,7 @@ public class UltraHardCoreMode extends JavaPlugin{
         //DATABASE
         db.savePlayersDisabled(settings.getNames());
         db.saveGlobalStatus(settings.globalStatus());
+        db.saveBannedWorlds(settings.getBannedWorlds());
         
     }
     

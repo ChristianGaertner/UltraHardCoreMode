@@ -4,6 +4,7 @@
  */
 package io.github.christiangaertner.ultrahardcoremode;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import org.bukkit.entity.Player;
@@ -16,6 +17,7 @@ public class Settings {
     
     private Set<String> primary = new HashSet<String>();
     private Set<String> worlds = new HashSet<String>();
+    private HashMap <String, HashSet<String>> bannedWorlds = new HashMap <String, HashSet<String>>();
     private boolean world_whitelist;
     private boolean enabled;
 
@@ -40,13 +42,7 @@ public class Settings {
         }
     }
     
-    public Set<String> getNames(){
-        return primary;
-    }
     
-    public void initHashSetPlayers(Set<String> newSet) {
-        this.primary = newSet;
-    }
     //DISABLE/ENABLE PLAYER END---
     
     //DISABLE/ENABLE GLOBAL START---
@@ -79,6 +75,74 @@ public class Settings {
 
     }
     
+    
+    
+    /**
+     * Bans the given player from the given world
+     * @param player
+     * @param worlds
+     */
+    public void banFromWorld(String player, String world) {
+        Set<String> worldsTMP = bannedWorlds.get(player);
+        
+        if (worldsTMP == null) {
+            worldsTMP = new HashSet<String>();
+        }
+
+        worldsTMP.add(world);
+        bannedWorlds.put(player, (HashSet<String>) worldsTMP);
+    }
+    
+    /**
+     * Unbans the given player from the given world; if the players is banned in one world only,
+     * the complete entry will be removed.
+     * @param player
+     * @param world
+     */
+    public void unbanFromWorld(String player, String world) {
+        Set<String> worldsTMP = bannedWorlds.get(player);
+        
+        if (worldsTMP == null) {
+            return;
+        }
+        
+        worldsTMP.remove(world);
+        if (worldsTMP.isEmpty()) {
+            bannedWorlds.remove(player);
+            return;
+        }
+        bannedWorlds.put(player, (HashSet<String>) worldsTMP);
+    }
+    
+    /**
+     * Checks if a player is allowed to enter the given world world
+     * returns true if the player is allowed to enter the given world
+     * @param player
+     * @param world
+     * @return
+     */
+    public boolean checkWorldAccess(String player, String world) {
+        
+        Set<String> worldsTMP = bannedWorlds.get(player);
+        
+        if (worldsTMP == null) {
+            return true; //that means, that the player is not banned from any world
+        }
+        
+        if (worldsTMP.contains(world)) {
+            return false;
+        }
+        
+        return true;
+    }
+        
+    //MULTIWORLD STUFF END---
+    
+    
+    //INIT
+    public void initHashSetPlayers(Set<String> newSet) {
+        this.primary = newSet;
+    }
     public void initHashSetWorlds(Set<String> newSet) {
         this.worlds = newSet;
     }
@@ -86,7 +150,18 @@ public class Settings {
     public void initWorldListMode(boolean whitelist) {
         this.world_whitelist = whitelist;
     }
+
+    public void initBannedWorlds(HashMap<String, HashSet<String>> newMap) {
+        this.bannedWorlds = newMap;
+    }
     
-    //MULTIWORLD STUFF END---
+    //SAVE
+    public Set<String> getNames() {
+        return primary;
+    }
+    
+    public HashMap<String, HashSet<String>> getBannedWorlds() {
+        return bannedWorlds;
+    }
     
 }

@@ -9,8 +9,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.logging.Level;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -42,7 +44,7 @@ public class FlatFileDataBase {
         
         if (!plugin.getDataFolder().exists()) {
             plugin.getDataFolder().mkdir();
-            this.initialStart = true;
+            initialStart = true;
         }
         
         if (!(new File(plugin.getDataFolder(), "/config.yml")).exists()) {
@@ -61,6 +63,18 @@ public class FlatFileDataBase {
             
             try{
                 (new File(plugin.getDataFolder(), "/worlds.yml")).createNewFile();
+                seedWorldsFile();
+                
+            } catch(IOException e) {
+                plugin.log.log(Level.WARNING, "[UHC] Cannot create databasefile.");
+            }
+            
+        }
+        
+        if (!(new File(plugin.getDataFolder(), "/data/bannedworlds.yml")).exists()) {
+            
+            try{
+                (new File(plugin.getDataFolder(), "/data/bannedworlds.yml")).createNewFile();
                 seedWorldsFile();
                 
             } catch(IOException e) {
@@ -226,4 +240,46 @@ public class FlatFileDataBase {
         boolean whitelist = fc.getBoolean("whitelist");
         return whitelist;
     }
+    
+    public void saveBannedWorlds(HashMap<String, HashSet<String>> bannedWorlds) {
+        
+        //if no folder exists, the plugin may be deleted.
+        if (!(new File(plugin.getDataFolder(), "/data/bannedWorlds.yml")).exists()) {
+            return;
+        }
+        
+        fc = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder() + "/data/bannedWorlds.yml"));
+        
+        for (Entry<String, HashSet<String>> entry : bannedWorlds.entrySet()) {
+            String player = entry.getKey();
+            HashSet<String> worlds = entry.getValue();
+            
+            List<String> list = new ArrayList<String>();
+            
+            for (String p : worlds) {
+                list.add(p);
+            }
+            
+            fc.set(player, list);
+            try {
+                fc.save(new File(plugin.getDataFolder() + "/data/bannedWorlds.yml"));
+            } catch (IOException ex) {
+                plugin.log.log(Level.WARNING, "[UHC] Cannot open databasefile.");
+            }
+        }
+        
+        
+    }
+    
+    public HashMap<String, HashSet<String>> loadBannedWorlds() {
+        
+        HashMap<String, HashSet<String>> bannedWorlds;
+        fc = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder() + "/data/bannedWorlds.yml"));
+        
+        bannedWorlds = new HashMap<String, HashSet<String>>();
+        
+        return bannedWorlds;
+    }
+    
+    
 }

@@ -72,6 +72,7 @@ public class Config {
         //settings
         config.set("settings.regain", 5);
         config.set("settings.ban-on-death", true);
+        config.set("settings.permit-world-access-on-death", true);
         
 //        config.options().copyDefaults(true);
         try {
