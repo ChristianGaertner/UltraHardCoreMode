@@ -11,6 +11,8 @@ import io.github.christiangaertner.ultrahardcoremode.commandexecutor.ResetConfig
 import io.github.christiangaertner.ultrahardcoremode.commandexecutor.ToogleCommandExecutor;
 import io.github.christiangaertner.ultrahardcoremode.file.FlatFileDataBase;
 import io.github.christiangaertner.ultrahardcoremode.listener.PlayerDeathListener;
+import io.github.christiangaertner.ultrahardcoremode.listener.PlayerJoinListener;
+import io.github.christiangaertner.ultrahardcoremode.listener.PlayerPortalListener;
 import io.github.christiangaertner.ultrahardcoremode.listener.PlayerTeleportListener;
 import io.github.christiangaertner.ultrahardcoremode.listener.RegainListener;
 import java.io.IOException;
@@ -33,6 +35,7 @@ public class UltraHardCoreMode extends JavaPlugin{
     public Settings settings = new Settings();
     public Config config = new Config(this);
     public FlatFileDataBase db = new FlatFileDataBase(this, config);
+    public Helper helper = new Helper(this);
     
     
     @Override
@@ -63,9 +66,11 @@ public class UltraHardCoreMode extends JavaPlugin{
         getCommand("uhc-resetconfig")   .setExecutor(new ResetConfigCommandExecutor     (this, settings, config));
         
         //REGISTER EVENTS
-        getServer().getPluginManager().registerEvents(new RegainListener            (this, settings, config), this);
-        getServer().getPluginManager().registerEvents(new PlayerDeathListener       (this, settings, config), this);
-        getServer().getPluginManager().registerEvents(new PlayerTeleportListener    (this, settings, config), this);
+        getServer().getPluginManager().registerEvents(new RegainListener            (this, settings, config, helper), this);
+        getServer().getPluginManager().registerEvents(new PlayerDeathListener       (this, settings, config, helper), this);
+        getServer().getPluginManager().registerEvents(new PlayerTeleportListener    (this, settings, config, helper), this);
+        getServer().getPluginManager().registerEvents(new PlayerPortalListener    (this, settings, config, helper), this);
+        getServer().getPluginManager().registerEvents(new PlayerJoinListener        (this, settings, config, helper), this);
     }
     
     @Override

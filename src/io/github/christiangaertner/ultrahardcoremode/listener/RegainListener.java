@@ -4,6 +4,7 @@
  */
 package io.github.christiangaertner.ultrahardcoremode.listener;
 
+import io.github.christiangaertner.ultrahardcoremode.Helper;
 import io.github.christiangaertner.ultrahardcoremode.Settings;
 import io.github.christiangaertner.ultrahardcoremode.UltraHardCoreMode;
 import io.github.christiangaertner.ultrahardcoremode.file.Config;
@@ -24,11 +25,13 @@ public class RegainListener implements Listener {
     private UltraHardCoreMode plugin;
     private Settings settings;
     private Config config;
+    private Helper helper;
     
-    public RegainListener(UltraHardCoreMode plugin, Settings settings, Config config) {
+    public RegainListener(UltraHardCoreMode plugin, Settings settings, Config config, Helper helper) {
         this.plugin = plugin;
         this.settings = settings;
         this.config = config;
+        this.helper = helper;
     }
 
     

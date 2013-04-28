@@ -52,6 +52,7 @@ public class Config {
         config.set("alerts.uhcglobaloff", "UltraHardCore is globally disabled on this server.");
         config.set("alerts.uhcglobalofferror", "UHC is disabled globally! Use /uhc-toogle global to turn it back on!");
         config.set("alerts.worlddisabled", "UHC is disabled in this world!");
+        config.set("alerts.noteleport", "You died in this world, so you cannot enter it!");
         
         //alerts for /heal
         config.set("alerts.heal.already", "You have full health already!");
@@ -73,6 +74,8 @@ public class Config {
         config.set("settings.regain", 5);
         config.set("settings.ban-on-death", true);
         config.set("settings.permit-world-access-on-death", true);
+        config.set("settings.commandforworldchangeplayer", "spawn");
+        config.set("settings.commandforworldchangeconsole", "teleport %s 0 0 0");
         
 //        config.options().copyDefaults(true);
         try {
