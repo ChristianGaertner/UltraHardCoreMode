@@ -35,8 +35,12 @@ public class PlayerTeleportListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerTeleport(PlayerTeleportEvent event) {
         
-        Location dest = event.getTo();
-        String destWorld = dest.getWorld().getName();
+        if (event.getPlayer().hasPermission("uhc.bypass")) {
+            return;
+        }
+        
+        
+        String destWorld = event.getTo().getWorld().getName();
         
         if (settings.checkWorldAccess(event.getPlayer().getName(), destWorld)) {
             return;
@@ -44,6 +48,22 @@ public class PlayerTeleportListener implements Listener {
         if (event.isCancelled()) {
             return;
         }
+        
+        if (helper.getTeleportCount(event.getPlayer()) == 1) {
+            plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), String.format(config.config.getString("settings.commandforworldchangeconsole"), event.getPlayer().getName()));
+            helper.setTeleportCount(event.getPlayer(), 2);
+            if (!event.isCancelled()) {
+                event.setCancelled(true);
+            }
+        } else if (helper.getTeleportCount(event.getPlayer()) == 2) {
+            helper.setTeleportCount(event.getPlayer(), 0);
+            event.getPlayer().kickPlayer(config.config.getString("alerts.banned-reason"));
+            if (!event.isCancelled()) {
+                event.setCancelled(true);
+            }
+        }
+        
+        event.getPlayer().sendMessage(config.config.getString("alerts.noteleport"));
         event.setCancelled(true);
         
     }

@@ -39,25 +39,18 @@ public class PlayerJoinListener implements Listener {
         Player player = event.getPlayer();
         String world = player.getLocation().getWorld().getName();
         
-        if (settings.checkWorldAccess(event.getPlayer().getName(), world)) {
+        if (player.hasPermission("uhc.bypass")) {
             return;
         }
         
         
-        
-        
-        if (helper.getTeleportCount(player) == 0) {
-            helper.setTeleportCount(player, 1);
-            player.performCommand(config.config.getString("settings.commandforworldchangeplayer"));
-        } else if (helper.getTeleportCount(player) == 1) {
-            helper.setTeleportCount(player, 2);
-            plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), String.format(config.config.getString("settings.commandforworldchangeconsole"), player.getName()));
-        } else {
-            player.kickPlayer(config.config.getString("alerts.banned-reason"));
+        if (settings.checkWorldAccess(event.getPlayer().getName(), world)) {
+            return;
         }
         
+        helper.setTeleportCount(player, 1); //reset data on join!
         
-        player.kickPlayer(config.config.getString("alerts.banned-reason"));
+        player.performCommand(config.config.getString("settings.commandforworldchangeplayer"));
         
     }
 }

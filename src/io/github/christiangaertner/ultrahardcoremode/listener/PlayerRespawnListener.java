@@ -8,16 +8,18 @@ import io.github.christiangaertner.ultrahardcoremode.Helper;
 import io.github.christiangaertner.ultrahardcoremode.Settings;
 import io.github.christiangaertner.ultrahardcoremode.UltraHardCoreMode;
 import io.github.christiangaertner.ultrahardcoremode.file.Config;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
 /**
  *
  * @author Christian
  */
-public class PlayerRespawnListener {
+public class PlayerRespawnListener implements Listener {
     
     private UltraHardCoreMode plugin;
     private Settings settings;
@@ -37,6 +39,10 @@ public class PlayerRespawnListener {
         
         Player player = event.getPlayer();
         
+        if (player.hasPermission("uhc.bypass")) {
+            return;
+        }
+        
         if (!helper.getDeathStatus(player)) {
             return;
         }
@@ -46,17 +52,9 @@ public class PlayerRespawnListener {
             return;
         }
         
-        if (helper.getTeleportCount(player) == 0) {
-            helper.setTeleportCount(player, 1);
-            player.performCommand(config.config.getString("settings.commandforworldchangeplayer"));
-        } else if (helper.getTeleportCount(player) == 1) {
-            helper.setTeleportCount(player, 2);
-            plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), String.format(config.config.getString("settings.commandforworldchangeconsole"), player.getName()));
-        } else {
-            player.kickPlayer(config.config.getString("alerts.banned-reason"));
-        }
         
-        player.kickPlayer(config.config.getString("alerts.banned-reason"));
+        helper.setTeleportCount(player, 1);
+        Bukkit.dispatchCommand(player, config.config.getString("settings.commandforworldchangeplayer"));
         
     }
     

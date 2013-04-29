@@ -37,16 +37,18 @@ public class PlayerPortalListener implements Listener {
         
         Player player = event.getPlayer();
         
-        String destWorld = event.getTo().getWorld().getName();
-        
-        plugin.getServer().broadcastMessage("1: " + destWorld);
-        
-        if (settings.checkWorldAccess(player.getName(), destWorld)) {
-            plugin.getServer().broadcastMessage("2: " + destWorld);
+        if (player.hasPermission("uhc.bypass")) {
             return;
         }
         
-        plugin.getServer().broadcastMessage("3: " + destWorld);
+        String destWorld = event.getTo().getWorld().getName();
+        
+        
+        if (settings.checkWorldAccess(player.getName(), destWorld)) {
+            return;
+        }
+        
+        player.sendMessage(config.config.getString("alerts.noteleport"));
         
         if (event.isCancelled()) {
             return;

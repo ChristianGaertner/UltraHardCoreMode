@@ -271,12 +271,26 @@ public class FlatFileDataBase {
         
     }
     
+    @SuppressWarnings("unchecked")
     public HashMap<String, HashSet<String>> loadBannedWorlds() {
         
         HashMap<String, HashSet<String>> bannedWorlds;
         fc = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder() + "/data/bannedWorlds.yml"));
         
         bannedWorlds = new HashMap<String, HashSet<String>>();
+        
+        for (String player : fc.getKeys(true)) {
+            
+            List<String> worldsTMP = new ArrayList<String>();
+            
+            for (String world : fc.getStringList(player)) {
+                worldsTMP.add(world);
+            }
+            
+            Set<String> worldsTMP2 = new HashSet<String>(worldsTMP);
+            
+            bannedWorlds.put(player, (HashSet<String>) worldsTMP2);
+        }
         
         return bannedWorlds;
     }

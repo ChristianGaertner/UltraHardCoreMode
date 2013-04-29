@@ -13,6 +13,7 @@ import io.github.christiangaertner.ultrahardcoremode.file.FlatFileDataBase;
 import io.github.christiangaertner.ultrahardcoremode.listener.PlayerDeathListener;
 import io.github.christiangaertner.ultrahardcoremode.listener.PlayerJoinListener;
 import io.github.christiangaertner.ultrahardcoremode.listener.PlayerPortalListener;
+import io.github.christiangaertner.ultrahardcoremode.listener.PlayerRespawnListener;
 import io.github.christiangaertner.ultrahardcoremode.listener.PlayerTeleportListener;
 import io.github.christiangaertner.ultrahardcoremode.listener.RegainListener;
 import java.io.IOException;
@@ -69,8 +70,9 @@ public class UltraHardCoreMode extends JavaPlugin{
         getServer().getPluginManager().registerEvents(new RegainListener            (this, settings, config, helper), this);
         getServer().getPluginManager().registerEvents(new PlayerDeathListener       (this, settings, config, helper), this);
         getServer().getPluginManager().registerEvents(new PlayerTeleportListener    (this, settings, config, helper), this);
-        getServer().getPluginManager().registerEvents(new PlayerPortalListener    (this, settings, config, helper), this);
+        getServer().getPluginManager().registerEvents(new PlayerPortalListener      (this, settings, config, helper), this);
         getServer().getPluginManager().registerEvents(new PlayerJoinListener        (this, settings, config, helper), this);
+        getServer().getPluginManager().registerEvents(new PlayerRespawnListener     (this, settings, config, helper), this);
     }
     
     @Override
