@@ -9,6 +9,7 @@ import io.github.christiangaertner.ultrahardcoremode.Settings;
 import io.github.christiangaertner.ultrahardcoremode.UltraHardCoreMode;
 import io.github.christiangaertner.ultrahardcoremode.file.Config;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -48,13 +49,25 @@ public class PlayerRespawnListener implements Listener {
         }
         
         
-        if (settings.checkWorldAccess(player.getName(), player.getLocation().getWorld().getName())) {
+        if (settings.checkWorldAccess(player.getName(), event.getRespawnLocation().getWorld().getName())) {
             return;
         }
         
         
-        helper.setTeleportCount(player, 1);
-        Bukkit.dispatchCommand(player, config.config.getString("settings.commandforworldchangeplayer"));
+        String world = config.config.getString("settings.tp.world");
+        Double x = config.config.getDouble("settings.tp.x");
+        Double y = config.config.getDouble("settings.tp.y");
+        Double z = config.config.getDouble("settings.tp.z");
+        
+        Location newLoc = new Location(Bukkit.getWorld(world), x, y, z);
+        
+        if (settings.checkWorldAccess(player.getName(), world)) {
+            event.setRespawnLocation(newLoc);
+            return;
+        }
+        
+        player.kickPlayer(config.config.getString("alerts.banned-reason"));
+        
         
     }
     

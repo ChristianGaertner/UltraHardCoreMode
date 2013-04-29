@@ -74,8 +74,13 @@ public class Config {
         config.set("settings.regain", 5);
         config.set("settings.ban-on-death", true);
         config.set("settings.permit-world-access-on-death", true);
-        config.set("settings.commandforworldchangeplayer", "spawn");
-        config.set("settings.commandforworldchangeconsole", "teleport %s 0 0 0");
+        
+        //settings.tp
+        config.set("settings.tp.world", "world");
+        config.set("settings.tp.x", 166);
+        config.set("settings.tp.y", 122);
+        config.set("settings.tp.z", 248);
+        
         
 //        config.options().copyDefaults(true);
         try {

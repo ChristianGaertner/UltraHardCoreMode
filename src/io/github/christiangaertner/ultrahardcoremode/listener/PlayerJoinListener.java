@@ -48,9 +48,8 @@ public class PlayerJoinListener implements Listener {
             return;
         }
         
-        helper.setTeleportCount(player, 1); //reset data on join!
         
-        player.performCommand(config.config.getString("settings.commandforworldchangeplayer"));
+        //TODO teleport
         
     }
 }
