@@ -75,7 +75,21 @@ public class Settings {
 
     }
     
-    
+    public boolean userIsBanned(String player, String world) {
+        Set<String> worldsTMP = bannedWorlds.get(player);
+        
+        if (worldsTMP == null) {
+            return false; //that means, that the player is not banned from any world
+        }
+        
+        if (world != null) {
+            if (worldsTMP.contains(world)) {
+                return true;
+            }
+        }
+        
+        return true; //if worldsTMP is not null, the player has to be banned in some world
+    }
     
     /**
      * Bans the given player from the given world

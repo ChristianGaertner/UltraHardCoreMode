@@ -261,11 +261,12 @@ public class FlatFileDataBase {
             }
             
             fc.set(player, list);
-            try {
-                fc.save(new File(plugin.getDataFolder() + "/data/bannedWorlds.yml"));
-            } catch (IOException ex) {
-                plugin.log.log(Level.WARNING, "[UHC] Cannot open databasefile.");
-            }
+            
+        }
+        try {
+            fc.save(new File(plugin.getDataFolder() + "/data/bannedWorlds.yml"));
+        } catch (IOException ex) {
+            plugin.log.log(Level.WARNING, "[UHC] Cannot open databasefile.");
         }
         
         

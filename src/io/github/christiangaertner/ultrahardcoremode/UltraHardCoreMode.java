@@ -7,6 +7,7 @@ package io.github.christiangaertner.ultrahardcoremode;
 import io.github.christiangaertner.ultrahardcoremode.file.Config;
 import io.github.christiangaertner.ultrahardcoremode.commandexecutor.HealCommandExecutor;
 import io.github.christiangaertner.ultrahardcoremode.commandexecutor.ListCommandExecutor;
+import io.github.christiangaertner.ultrahardcoremode.commandexecutor.PardonCommandExecutor;
 import io.github.christiangaertner.ultrahardcoremode.commandexecutor.ResetConfigCommandExecutor;
 import io.github.christiangaertner.ultrahardcoremode.commandexecutor.ToogleCommandExecutor;
 import io.github.christiangaertner.ultrahardcoremode.file.FlatFileDataBase;
@@ -66,7 +67,9 @@ public class UltraHardCoreMode extends JavaPlugin{
         getCommand("uhc-toogle")        .setExecutor(new ToogleCommandExecutor          (this, settings, config));
         getCommand("uhc-heal")          .setExecutor(new HealCommandExecutor            (this, settings, config));
         getCommand("uhc-list")          .setExecutor(new ListCommandExecutor            (this, settings, config));
+        getCommand("uhc-pardon")        .setExecutor(new PardonCommandExecutor          (this, settings, config));
         getCommand("uhc-resetconfig")   .setExecutor(new ResetConfigCommandExecutor     (this, settings, config));
+        
         
         //REGISTER EVENTS
         getServer().getPluginManager().registerEvents(new RegainListener            (this, settings, config, helper), this);

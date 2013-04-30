@@ -40,6 +40,7 @@ public class Config {
         config.set("alerts.noplayer", "This command can only be run by a player.");
         config.set("alerts.noplayerwithoptions", "This command can only be run by a player or add an option to the command.");
         config.set("alerts.toomanyargs", "Please check your input. Too many arguments.");
+        config.set("alerts.notenoughargs", "Please check your input. You have to append an argument.");
         config.set("alerts.noperms", "You do not have the permission to perform this command!");
         config.set("alerts.notonline", "Please choose a player who is online.");
         config.set("alerts.configreset", "The configuration has been resetted.");
@@ -69,6 +70,11 @@ public class Config {
         config.set("alerts.toogle.enableremote", "Mode has been toogled by %s! Now you are in UHC Mode.");
         config.set("alerts.heal.noitem", "You do not have enough items...!");
         
+        //alerts for /pardon
+        config.set("alerts.pardon.sucessall", "%s pardoned from %i worlds.");
+        config.set("alerts.pardon.sucessone", "%s pardoned from the world %s.");
+        config.set("alerts.pardon.notbannedall", "The player is not banned in any world.");
+        config.set("alerts.pardon.notbannedone", "The player is not banned in this world.");
         
         //settings
         config.set("settings.regain", 5);
