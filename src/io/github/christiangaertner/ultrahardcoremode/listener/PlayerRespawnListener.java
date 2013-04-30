@@ -40,11 +40,12 @@ public class PlayerRespawnListener implements Listener {
         
         Player player = event.getPlayer();
         
-        if (player.hasPermission("uhc.bypass")) {
+        
+        if (!helper.getDeathStatus(player)) {
             return;
         }
         
-        if (!helper.getDeathStatus(player)) {
+        if (!plugin.checkExec(player, null)) {
             return;
         }
         

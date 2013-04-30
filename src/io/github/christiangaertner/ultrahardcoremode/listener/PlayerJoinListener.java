@@ -13,7 +13,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.metadata.FixedMetadataValue;
 
 /**
  *
@@ -37,11 +36,12 @@ public class PlayerJoinListener implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         
         Player player = event.getPlayer();
-        String world = player.getLocation().getWorld().getName();
+        String world = player.getWorld().getName();
         
-        if (player.hasPermission("uhc.bypass")) {
+        if (!plugin.checkExec(player, player.getWorld())) {
             return;
         }
+
         
         
         if (settings.checkWorldAccess(event.getPlayer().getName(), world)) {

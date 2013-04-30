@@ -20,6 +20,8 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.bukkit.Bukkit;
+import org.bukkit.World;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -82,6 +84,31 @@ public class UltraHardCoreMode extends JavaPlugin{
         db.saveGlobalStatus(settings.globalStatus());
         db.saveBannedWorlds(settings.getBannedWorlds());
         
+    }
+    
+    public boolean checkExec(Player player, World world) {
+        if (!settings.globalStatus()) {
+            return false;
+        }
+        
+        if (player != null) {
+            if (settings.isDisabled(player)) {
+                return false;
+            }
+            
+            if (player.hasPermission("uhc.bypass") || player.hasPermission("uhc.*")) {
+                return false;
+            }
+        }
+        
+        if (world != null) {
+            if (!settings.checkWorld(world.getName())) {
+                return false;
+            }
+        }
+        
+        
+        return true;
     }
     
 

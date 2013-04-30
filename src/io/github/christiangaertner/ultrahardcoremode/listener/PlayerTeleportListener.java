@@ -35,10 +35,10 @@ public class PlayerTeleportListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerTeleport(PlayerTeleportEvent event) {
         
-        if (event.getPlayer().hasPermission("uhc.bypass")) {
+        
+        if (!plugin.checkExec(event.getPlayer(), null)) {
             return;
         }
-        
         
         String destWorld = event.getTo().getWorld().getName();
         

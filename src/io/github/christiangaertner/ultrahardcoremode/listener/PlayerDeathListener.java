@@ -40,9 +40,6 @@ public class PlayerDeathListener implements Listener{
         
         Player player;
         
-        if (!settings.globalStatus()) {
-            return;
-        }
         
         if (event.getEntity() instanceof Player) {
             player = (Player) event.getEntity();
@@ -52,10 +49,9 @@ public class PlayerDeathListener implements Listener{
         
         
         
-        if (player.hasPermission("uhc.bypass")) {
+        if (!plugin.checkExec(player, player.getWorld())) {
             return;
         }
-        
         
         helper.setDeathStatus(player, true);
         

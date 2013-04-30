@@ -37,7 +37,8 @@ public class PlayerPortalListener implements Listener {
         
         Player player = event.getPlayer();
         
-        if (player.hasPermission("uhc.bypass")) {
+        
+        if (!plugin.checkExec(player, null)) {
             return;
         }
         

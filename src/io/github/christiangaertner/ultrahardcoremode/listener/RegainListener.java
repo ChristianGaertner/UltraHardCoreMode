@@ -38,9 +38,6 @@ public class RegainListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerRegainHealth(EntityRegainHealthEvent event) {
         
-        if (!settings.globalStatus()) {
-            return;
-        }
         
         if(!(event.getEntity() instanceof Player)) {
             return; //we only want to affect players
@@ -49,15 +46,7 @@ public class RegainListener implements Listener {
         //get Player
         Player player = (Player) event.getEntity();
         
-        if (!settings.checkWorld(player.getWorld().getName())) {
-            return;
-        }
-        
-        if (player.hasPermission("uhc.bypass")) {
-            return;
-        }
-        
-        if (settings.isDisabled(player)) {
+        if (!plugin.checkExec(player, player.getWorld())) {
             return;
         }
         
