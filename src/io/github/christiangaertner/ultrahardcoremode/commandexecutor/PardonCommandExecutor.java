@@ -7,11 +7,7 @@ package io.github.christiangaertner.ultrahardcoremode.commandexecutor;
 import io.github.christiangaertner.ultrahardcoremode.Settings;
 import io.github.christiangaertner.ultrahardcoremode.UltraHardCoreMode;
 import io.github.christiangaertner.ultrahardcoremode.file.Config;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -35,7 +31,7 @@ public class PardonCommandExecutor implements CommandExecutor {
     
     @Override
     public boolean onCommand(CommandSender cs, Command cmnd, String string, String[] strings) {
-        
+          
         if (strings.length == 0) {
             cs.sendMessage(ChatColor.RED + config.config.getString("alerts.notenoughargs"));
             return false;
