@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package io.github.christiangaertner.ultrahardcoremode;
+package io.github.christiangaertner.ultrahardcoremode.Stats;
 
 /*
  * Copyright 2011-2013 Tyler Blair. All rights reserved.

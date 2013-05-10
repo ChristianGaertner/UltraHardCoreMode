@@ -88,7 +88,7 @@ public class Config {
         config.set("settings.tp.z", 248);
         
         
-//        config.options().copyDefaults(true);
+        
         try {
             config.save(new File(plugin.getDataFolder() + "/config.yml"));
         } catch (IOException ex) {

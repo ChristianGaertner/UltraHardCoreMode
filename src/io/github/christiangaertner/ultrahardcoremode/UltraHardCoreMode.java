@@ -4,6 +4,8 @@
  */
 package io.github.christiangaertner.ultrahardcoremode;
 
+import io.github.christiangaertner.ultrahardcoremode.Stats.DaStats;
+import io.github.christiangaertner.ultrahardcoremode.Stats.Metrics;
 import io.github.christiangaertner.ultrahardcoremode.file.Config;
 import io.github.christiangaertner.ultrahardcoremode.commandexecutor.HealCommandExecutor;
 import io.github.christiangaertner.ultrahardcoremode.commandexecutor.ListCommandExecutor;
@@ -44,13 +46,6 @@ public class UltraHardCoreMode extends JavaPlugin{
     
     @Override
     public void onEnable(){
-        try {
-            //METRICS
-            Metrics metrics = new Metrics(this);
-            metrics.start();
-        } catch (IOException ex) {
-             log.log(Level.WARNING, "[UHC] Cannot submit to McMetrics.");
-        }
         
         //DATABASE
         db.initDataBase();
@@ -59,7 +54,26 @@ public class UltraHardCoreMode extends JavaPlugin{
             settings.initHashSetWorlds(db.loadWorlds());
             settings.initWorldListMode(db.loadWorldMode());
             settings.initBannedWorlds(db.loadBannedWorlds());
-            settings.setGlobalStatus(db.loadGlobalStatus());  
+            settings.setGlobalStatus(db.loadGlobalStatus());
+        }
+        
+        //STATS STUFF
+        try {
+            //mcstats.org
+            Metrics metrics = new Metrics(this);
+            metrics.start();
+        } catch (IOException ex) {
+             log.log(Level.WARNING, "[UHC] Cannot submit to McMetrics.");
+        }
+        
+        
+        DaStats stats;
+        try {
+            //dastats
+            stats = new DaStats(this);
+            stats.send();
+        } catch (Exception ex) {
+            log.log(Level.WARNING, "[UHC] Cannot submit to DaStats.");
         }
         
         
@@ -99,7 +113,7 @@ public class UltraHardCoreMode extends JavaPlugin{
                 return false;
             }
             
-            if (player.hasPermission("uhc.bypass") || player.hasPermission("uhc.*")) {
+            if (player.hasPermission("uhc.bypass")) {
                 return false;
             }
         }

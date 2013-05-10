@@ -59,12 +59,21 @@ public class FlatFileDataBase {
             (new File(plugin.getDataFolder(), "/data/disabled")).mkdir();
         }
         
+        if (!(new File(plugin.getDataFolder(), "/data/dastats.yml")).exists()) {
+            
+            try{
+                (new File(plugin.getDataFolder(), "/data/dastats.yml")).createNewFile();
+            } catch(IOException e) {
+                plugin.log.log(Level.WARNING, "[UHC] Cannot create databasefile (GUID ERR).");
+            }
+            
+        }
+        
         if (!(new File(plugin.getDataFolder(), "/worlds.yml")).exists()) {
             
             try{
                 (new File(plugin.getDataFolder(), "/worlds.yml")).createNewFile();
                 seedWorldsFile();
-                
             } catch(IOException e) {
                 plugin.log.log(Level.WARNING, "[UHC] Cannot create databasefile.");
             }
@@ -75,7 +84,6 @@ public class FlatFileDataBase {
             
             try{
                 (new File(plugin.getDataFolder(), "/data/bannedworlds.yml")).createNewFile();
-                seedWorldsFile();
                 
             } catch(IOException e) {
                 plugin.log.log(Level.WARNING, "[UHC] Cannot create databasefile.");
@@ -294,6 +302,38 @@ public class FlatFileDataBase {
         }
         
         return bannedWorlds;
+    }
+    
+    
+    public void saveDaStats(String guid, Boolean optout) {
+        
+        fc = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder() + "/data/dastats.yml"));
+        
+        fc.set("opt-out", optout);
+        fc.set("guid", guid);
+        
+        
+        try {
+            fc.save(new File(plugin.getDataFolder() + "/data/dastats.yml"));
+        } catch (IOException ex) {
+            plugin.log.log(Level.WARNING, "[UHC] Cannot open databasefile (GUID ERR).");
+        }
+        
+    }
+    
+    public String loadDaStats(String which) {
+        
+        
+        
+        fc = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder() + "/data/dastats.yml"));
+        
+        if (which.equalsIgnoreCase("guid")) return fc.getString("guid");
+        if (which.equalsIgnoreCase("opt-out") && fc.getBoolean("opt-out")) {
+            return "true";
+        }else if (which.equalsIgnoreCase("opt-out")) {
+            return "false";
+        }
+        return null;
     }
     
     
