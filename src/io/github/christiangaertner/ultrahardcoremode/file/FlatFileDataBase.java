@@ -44,7 +44,7 @@ public class FlatFileDataBase {
         
         if (!plugin.getDataFolder().exists()) {
             plugin.getDataFolder().mkdir();
-            initialStart = true;
+            this.initialStart = true;
         }
         
         if (!(new File(plugin.getDataFolder(), "/config.yml")).exists()) {
@@ -65,6 +65,7 @@ public class FlatFileDataBase {
                 (new File(plugin.getDataFolder(), "/data/dastats.yml")).createNewFile();
             } catch(IOException e) {
                 plugin.log.log(Level.WARNING, "[UHC] Cannot create databasefile (GUID ERR).");
+                plugin.errorreporter.addStacktrace(e);
             }
             
         }
@@ -76,6 +77,7 @@ public class FlatFileDataBase {
                 seedWorldsFile();
             } catch(IOException e) {
                 plugin.log.log(Level.WARNING, "[UHC] Cannot create databasefile.");
+                plugin.errorreporter.addStacktrace(e);
             }
             
         }
@@ -87,6 +89,7 @@ public class FlatFileDataBase {
                 
             } catch(IOException e) {
                 plugin.log.log(Level.WARNING, "[UHC] Cannot create databasefile.");
+                plugin.errorreporter.addStacktrace(e);
             }
             
         }
@@ -97,6 +100,7 @@ public class FlatFileDataBase {
                 (new File(plugin.getDataFolder(), "/data/disabled/players.yml")).createNewFile();
             } catch(IOException e) {
                 plugin.log.log(Level.WARNING, "[UHC] Cannot create databasefile.");
+                plugin.errorreporter.addStacktrace(e);
             }
             
         }
@@ -107,6 +111,7 @@ public class FlatFileDataBase {
                 (new File(plugin.getDataFolder(), "/data/disabled/global.yml")).createNewFile();
             } catch(IOException e) {
                 plugin.log.log(Level.WARNING, "[UHC] Cannot create databasefile.");
+                plugin.errorreporter.addStacktrace(e);
             }
             
         }
@@ -139,8 +144,10 @@ public class FlatFileDataBase {
             
         } catch (FileNotFoundException ex) {
             plugin.log.log(Level.WARNING, "[UHC] Cannot find databasefile.");
+            plugin.errorreporter.addStacktrace(ex);
         } catch (IOException ex) {
             plugin.log.log(Level.WARNING, "[UHC] Cannot open databasefile.");
+            plugin.errorreporter.addStacktrace(ex);
         }
         
         
@@ -185,8 +192,10 @@ public class FlatFileDataBase {
             
         } catch (FileNotFoundException ex) {
             plugin.log.log(Level.WARNING, "[UHC] Cannot find databasefile.");
+            plugin.errorreporter.addStacktrace(ex);
         } catch (IOException ex) {
             plugin.log.log(Level.WARNING, "[UHC] Cannot open databasefile.");
+            plugin.errorreporter.addStacktrace(ex);
         }
         
     }
@@ -223,8 +232,10 @@ public class FlatFileDataBase {
             
         } catch (FileNotFoundException ex) {
             plugin.log.log(Level.WARNING, "[UHC] Cannot find databasefile.");
+            plugin.errorreporter.addStacktrace(ex);
         } catch (IOException ex) {
             plugin.log.log(Level.WARNING, "[UHC] Cannot open databasefile.");
+            plugin.errorreporter.addStacktrace(ex);
         }
         
     }
@@ -275,6 +286,7 @@ public class FlatFileDataBase {
             fc.save(new File(plugin.getDataFolder() + "/data/bannedWorlds.yml"));
         } catch (IOException ex) {
             plugin.log.log(Level.WARNING, "[UHC] Cannot open databasefile.");
+            plugin.errorreporter.addStacktrace(ex);
         }
         
         
@@ -316,7 +328,7 @@ public class FlatFileDataBase {
         try {
             fc.save(new File(plugin.getDataFolder() + "/data/dastats.yml"));
         } catch (IOException ex) {
-            plugin.log.log(Level.WARNING, "[UHC] Cannot open databasefile (GUID ERR).");
+            plugin.log.log(Level.WARNING, "[UHC] Cannot open databasefile (DaStats ERR).");
         }
         
     }

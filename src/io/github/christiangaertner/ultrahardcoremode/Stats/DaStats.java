@@ -25,13 +25,15 @@ public class DaStats {
      *
      * @param plugin
      */
-    public DaStats(final UltraHardCoreMode plugin) throws Exception {
-        if (plugin == null) {
-            throw new IllegalArgumentException("Plugin cannot be null");
-        }
-        
+    public DaStats(final UltraHardCoreMode plugin) {
         this.plugin = plugin;
+        //init poster
+        this.poster = new HTTP();
+        this.poster.setTarget(url);
         
+    }
+    
+    public void sendFirst() throws Exception {
         
         if (this.plugin.db.initialStart) {
             //generate a GUID & save it
@@ -49,26 +51,41 @@ public class DaStats {
             }
         }
         
-        //init poster
-        this.poster = new HTTP();
-        
-    }
-    
-    
-    public void send() throws Exception {
-        
-        
         if (!DaStats.sendData) {
             return;
         }
         
+        this.poster.setParam("guid", DaStats.guid);
+        this.poster.setParam("ver", plugin.getDescription().getVersion());
         
-        String result = this.poster.get(DaStats.url, DaStats.guid, plugin.getDescription().getVersion());
+        String result = this.poster.get();
         
+        this.poster.resetParams();
         
         if (!result.contains("OK")) {
-            throw new IOException("RESPONDE CODE NOT 'OK'");
+            throw new IOException("RESPONDE CODE NOT 'OK': " + result);
         }
+        
+    }
+    
+    public void sendStackTrace(String stackTrace) throws Exception {
+        
+        if(!DaStats.sendData) {
+            return;
+        }
+        
+        this.poster.setParam("guid", DaStats.guid);
+        this.poster.setParam("ver", plugin.getDescription().getVersion());
+        this.poster.setParam("errreport", stackTrace);
+        
+        String result = this.poster.get();
+        
+        this.poster.resetParams();
+        
+        if (!result.contains("OK")) {
+            throw new IOException("RESPONDE CODE NOT 'OK': " + result);
+        }
+        
         
     }
     

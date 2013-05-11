@@ -13,11 +13,32 @@ import java.net.URLConnection;
 
 
 public class HTTP {
+    
+    private String query;
+    private String target;
+    
+    
+    public void setTarget(String url) {
+        this.target = url;
+    }
+    public void setParam(String key, String param) {
+        if (this.query == null) {
+            this.query = "?" + key + "=" + param;
+            return;
+        }
+        param = "&" + key + "=" + param;
+        this.query = this.query.concat(param);
+        
+    }
+    
+    public void resetParams() {
+        this.query = null;
+    }
 
-    public String get(String req, String guid, String version) throws IOException {
+    public String get() throws IOException {
 
         // get URL content
-        URL url = new URL(req + "?guid=" + guid + "&ver=" + version);
+        URL url = new URL(this.target.concat(this.query));
         URLConnection conn = url.openConnection();
 
         // open the stream and put it into BufferedReader
@@ -36,6 +57,7 @@ public class HTTP {
 
         return result;
     }
+
    
 
 }

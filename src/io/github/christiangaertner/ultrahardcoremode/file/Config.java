@@ -93,6 +93,7 @@ public class Config {
             config.save(new File(plugin.getDataFolder() + "/config.yml"));
         } catch (IOException ex) {
             plugin.log.log(Level.WARNING, "[UHC] Cannot save config.");
+            plugin.errorreporter.addStacktrace(ex);
         }
     }
 }

@@ -5,6 +5,7 @@
 package io.github.christiangaertner.ultrahardcoremode;
 
 import io.github.christiangaertner.ultrahardcoremode.Stats.DaStats;
+import io.github.christiangaertner.ultrahardcoremode.Stats.ErrorReporter;
 import io.github.christiangaertner.ultrahardcoremode.Stats.Metrics;
 import io.github.christiangaertner.ultrahardcoremode.file.Config;
 import io.github.christiangaertner.ultrahardcoremode.commandexecutor.HealCommandExecutor;
@@ -42,6 +43,8 @@ public class UltraHardCoreMode extends JavaPlugin{
     public Config config = new Config(this);
     public FlatFileDataBase db = new FlatFileDataBase(this, config);
     public Helper helper = new Helper(this);
+    public DaStats dastats = new DaStats(this);
+    public ErrorReporter errorreporter = new ErrorReporter(this);
     
     
     @Override
@@ -67,11 +70,9 @@ public class UltraHardCoreMode extends JavaPlugin{
         }
         
         
-        DaStats stats;
         try {
             //dastats
-            stats = new DaStats(this);
-            stats.send();
+            dastats.sendFirst();
         } catch (Exception ex) {
             log.log(Level.WARNING, "[UHC] Cannot submit to DaStats.");
         }
@@ -127,7 +128,7 @@ public class UltraHardCoreMode extends JavaPlugin{
         
         return true;
     }
-    
+        
 
     
     
