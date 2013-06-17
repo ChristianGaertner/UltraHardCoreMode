@@ -52,17 +52,26 @@ public class FlatFileDataBase {
         }
         
         if (!(new File(plugin.getDataFolder(), "/data")).exists()) {
-            (new File(plugin.getDataFolder(), "/data")).mkdir();
+            File data = new File(plugin.getDataFolder(), "/data");
+            data.setReadable(true);
+            data.setWritable(true);
+            data.mkdir();
         }
         
         if (!(new File(plugin.getDataFolder(), "/data/disabled")).exists()) {
-            (new File(plugin.getDataFolder(), "/data/disabled")).mkdir();
+            File disabled = new File(plugin.getDataFolder(), "/data/disabled");
+            disabled.setReadable(true);
+            disabled.setWritable(true);
+            disabled.mkdir();
         }
         
         if (!(new File(plugin.getDataFolder(), "/data/dastats.yml")).exists()) {
             
             try{
-                (new File(plugin.getDataFolder(), "/data/dastats.yml")).createNewFile();
+                File dastats = new File(plugin.getDataFolder(), "/data/dastats.yml");
+                dastats.setReadable(true);
+                dastats.setWritable(true);
+                dastats.createNewFile();
             } catch(IOException e) {
                 plugin.log.log(Level.WARNING, "[UHC] Cannot create databasefile (GUID ERR).");
                 plugin.errorreporter.addStacktrace(e);
@@ -73,7 +82,10 @@ public class FlatFileDataBase {
         if (!(new File(plugin.getDataFolder(), "/worlds.yml")).exists()) {
             
             try{
-                (new File(plugin.getDataFolder(), "/worlds.yml")).createNewFile();
+                File worlds = new File(plugin.getDataFolder(), "/worlds.yml");
+                worlds.setReadable(true);
+                worlds.setWritable(true);
+                worlds.createNewFile();
                 seedWorldsFile();
             } catch(IOException e) {
                 plugin.log.log(Level.WARNING, "[UHC] Cannot create databasefile.");
@@ -85,7 +97,10 @@ public class FlatFileDataBase {
         if (!(new File(plugin.getDataFolder(), "/data/bannedworlds.yml")).exists()) {
             
             try{
-                (new File(plugin.getDataFolder(), "/data/bannedworlds.yml")).createNewFile();
+                File bannedworlds = new File(plugin.getDataFolder(), "/data/bannedworlds.yml");
+                bannedworlds.setReadable(true);
+                bannedworlds.setWritable(true);
+                bannedworlds.createNewFile();
                 
             } catch(IOException e) {
                 plugin.log.log(Level.WARNING, "[UHC] Cannot create databasefile.");
@@ -97,7 +112,10 @@ public class FlatFileDataBase {
         if (!(new File(plugin.getDataFolder(), "/data/disabled/players.yml")).exists()) {
             
             try{
-                (new File(plugin.getDataFolder(), "/data/disabled/players.yml")).createNewFile();
+                File playersDisabled = new File(plugin.getDataFolder(), "/data/disabled/players.yml");
+                playersDisabled.setReadable(true);
+                playersDisabled.setWritable(true);
+                playersDisabled.createNewFile();
             } catch(IOException e) {
                 plugin.log.log(Level.WARNING, "[UHC] Cannot create databasefile.");
                 plugin.errorreporter.addStacktrace(e);
@@ -108,7 +126,10 @@ public class FlatFileDataBase {
         if (!(new File(plugin.getDataFolder(), "/data/disabled/global.yml")).exists()) {
             
             try{
-                (new File(plugin.getDataFolder(), "/data/disabled/global.yml")).createNewFile();
+                File globalDisabled = new File(plugin.getDataFolder(), "/data/disabled/global.yml");
+                globalDisabled.setReadable(true);
+                globalDisabled.setWritable(true);
+                globalDisabled.createNewFile();
             } catch(IOException e) {
                 plugin.log.log(Level.WARNING, "[UHC] Cannot create databasefile.");
                 plugin.errorreporter.addStacktrace(e);

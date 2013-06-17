@@ -18,8 +18,12 @@ public class DaStats {
     private final HTTP poster;
     private static Boolean sendData;
     private static String guid;
-    private static String url = "http://dagardner-bukkit.appspot.com/stats/uhc";
-//    private static String url = "http://localhost:8080/stats/uhc";
+    
+    private static String urlStats = "http://dagardner-bukkit.appspot.com/stats/uhc";
+//    private static String urlStats = "http://localhost:8080/stats/uhc";
+    
+    private static String urlErr = "http://dagardner-bukkit.appspot.com/error/uhc";
+//    private static String urlErr = "http://localhost:8080/error/uhc";
     
     /**
      *
@@ -29,7 +33,6 @@ public class DaStats {
         this.plugin = plugin;
         //init poster
         this.poster = new HTTP();
-        this.poster.setTarget(url);
         
     }
     
@@ -55,6 +58,7 @@ public class DaStats {
             return;
         }
         
+        this.poster.setTarget(urlStats);
         this.poster.setParam("guid", DaStats.guid);
         this.poster.setParam("ver", plugin.getDescription().getVersion());
         
@@ -73,7 +77,7 @@ public class DaStats {
         if(!DaStats.sendData) {
             return;
         }
-        
+        this.poster.setTarget(urlErr);
         this.poster.setParam("guid", DaStats.guid);
         this.poster.setParam("ver", plugin.getDescription().getVersion());
         this.poster.setParam("errreport", stackTrace);
