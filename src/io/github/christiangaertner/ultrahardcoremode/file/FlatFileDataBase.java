@@ -1,6 +1,6 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ *
+ *
  */
 package io.github.christiangaertner.ultrahardcoremode.file;
 
@@ -53,25 +53,28 @@ public class FlatFileDataBase {
         
         if (!(new File(plugin.getDataFolder(), "/data")).exists()) {
             File data = new File(plugin.getDataFolder(), "/data");
+            data.mkdir();
             data.setReadable(true);
             data.setWritable(true);
-            data.mkdir();
         }
         
         if (!(new File(plugin.getDataFolder(), "/data/disabled")).exists()) {
             File disabled = new File(plugin.getDataFolder(), "/data/disabled");
+            disabled.mkdir();
             disabled.setReadable(true);
             disabled.setWritable(true);
-            disabled.mkdir();
         }
         
         if (!(new File(plugin.getDataFolder(), "/data/dastats.yml")).exists()) {
             
             try{
                 File dastats = new File(plugin.getDataFolder(), "/data/dastats.yml");
+                dastats.createNewFile();
                 dastats.setReadable(true);
                 dastats.setWritable(true);
-                dastats.createNewFile();
+                if (!dastats.canWrite()) {
+                    throw new IOException("File is not writable.");
+                }
             } catch(IOException e) {
                 plugin.log.log(Level.WARNING, "[UHC] Cannot create databasefile (GUID ERR).");
                 plugin.errorreporter.addStacktrace(e);
@@ -83,9 +86,12 @@ public class FlatFileDataBase {
             
             try{
                 File worlds = new File(plugin.getDataFolder(), "/worlds.yml");
+                worlds.createNewFile();
                 worlds.setReadable(true);
                 worlds.setWritable(true);
-                worlds.createNewFile();
+                if (!worlds.canWrite()) {
+                    throw new IOException("File is not writable.");
+                }
                 seedWorldsFile();
             } catch(IOException e) {
                 plugin.log.log(Level.WARNING, "[UHC] Cannot create databasefile.");
@@ -98,9 +104,12 @@ public class FlatFileDataBase {
             
             try{
                 File bannedworlds = new File(plugin.getDataFolder(), "/data/bannedworlds.yml");
+                bannedworlds.createNewFile();
                 bannedworlds.setReadable(true);
                 bannedworlds.setWritable(true);
-                bannedworlds.createNewFile();
+                if (!bannedworlds.canWrite()) {
+                    throw new IOException("File is not writable.");
+                }
                 
             } catch(IOException e) {
                 plugin.log.log(Level.WARNING, "[UHC] Cannot create databasefile.");
@@ -113,9 +122,12 @@ public class FlatFileDataBase {
             
             try{
                 File playersDisabled = new File(plugin.getDataFolder(), "/data/disabled/players.yml");
+                playersDisabled.createNewFile();
                 playersDisabled.setReadable(true);
                 playersDisabled.setWritable(true);
-                playersDisabled.createNewFile();
+                if (!playersDisabled.canWrite()) {
+                    throw new IOException("File is not writable.");
+                }
             } catch(IOException e) {
                 plugin.log.log(Level.WARNING, "[UHC] Cannot create databasefile.");
                 plugin.errorreporter.addStacktrace(e);
@@ -127,9 +139,12 @@ public class FlatFileDataBase {
             
             try{
                 File globalDisabled = new File(plugin.getDataFolder(), "/data/disabled/global.yml");
+                globalDisabled.createNewFile();
                 globalDisabled.setReadable(true);
                 globalDisabled.setWritable(true);
-                globalDisabled.createNewFile();
+                if (!globalDisabled.canWrite()) {
+                    throw new IOException("File is not writable.");
+                }
             } catch(IOException e) {
                 plugin.log.log(Level.WARNING, "[UHC] Cannot create databasefile.");
                 plugin.errorreporter.addStacktrace(e);
