@@ -19,7 +19,7 @@ public class Config {
     
     private UltraHardCoreMode plugin;
     
-    public FileConfiguration config;;
+    public FileConfiguration config;
     
     /**
      *
@@ -78,6 +78,7 @@ public class Config {
         
         //settings
         config.set("settings.regain", 5);
+        config.set("settings.potion-regain", false);
         config.set("settings.ban-on-death", true);
         config.set("settings.permit-world-access-on-death", true);
         

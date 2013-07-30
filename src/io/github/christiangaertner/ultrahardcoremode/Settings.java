@@ -20,10 +20,15 @@ public class Settings {
     private HashMap <String, HashSet<String>> bannedWorlds = new HashMap <String, HashSet<String>>();
     private boolean world_whitelist;
     private boolean enabled;
+    private boolean potions;
 
     public Settings() {
         this.enabled = true;
         this.world_whitelist = false;
+    }
+    
+    public boolean potions() {
+        return this.potions;
     }
     
     //DISABLE/ENABLE PLAYER START---
@@ -167,6 +172,10 @@ public class Settings {
 
     public void initBannedWorlds(HashMap<String, HashSet<String>> newMap) {
         this.bannedWorlds = newMap;
+    }
+    
+    public void initPotions(boolean potions) {
+        this.potions = potions;
     }
     
     //SAVE

@@ -46,7 +46,7 @@ public class RegainListener implements Listener {
         //get Player
         Player player = (Player) event.getEntity();
         
-        if (!plugin.checkExec(player, player.getWorld())) {
+        if (!plugin.checkExec(player, player.getWorld(), this)) {
             return;
         }
         

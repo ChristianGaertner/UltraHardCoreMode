@@ -49,14 +49,18 @@ public class UltraHardCoreMode extends JavaPlugin{
     
     @Override
     public void onEnable(){
-        
-        //DATABASE
-        db.initDataBase();
+        try {
+            //DATABASE
+            db.initDataBase();
+        } catch (IOException ex) {
+            log.log(Level.WARNING, "[UHC] Couldn' t create database file(s).");
+        }
         if (!db.initialStart) {
             settings.initHashSetPlayers(db.loadPlayersDisabled());
             settings.initHashSetWorlds(db.loadWorlds());
             settings.initWorldListMode(db.loadWorldMode());
             settings.initBannedWorlds(db.loadBannedWorlds());
+            settings.initPotions(config.config.getBoolean("settings.potion-regain"));
             settings.setGlobalStatus(db.loadGlobalStatus());
         }
         
@@ -80,6 +84,7 @@ public class UltraHardCoreMode extends JavaPlugin{
         
         //REGISTER COMMANDS
         getCommand("uhc-toogle")        .setExecutor(new ToogleCommandExecutor          (this, settings, config));
+        getCommand("uhc-toggle")        .setExecutor(new ToogleCommandExecutor          (this, settings, config));
         getCommand("uhc-heal")          .setExecutor(new HealCommandExecutor            (this, settings, config));
         getCommand("uhc-list")          .setExecutor(new ListCommandExecutor            (this, settings, config));
         getCommand("uhc-pardon")        .setExecutor(new PardonCommandExecutor          (this, settings, config));
@@ -98,12 +103,22 @@ public class UltraHardCoreMode extends JavaPlugin{
     @Override
     public void onDisable(){
         //DATABASE
-        db.savePlayersDisabled(settings.getNames());
-        db.saveGlobalStatus(settings.globalStatus());
-        db.saveBannedWorlds(settings.getBannedWorlds());
+        try {
+            db.savePlayersDisabled(settings.getNames());
+            db.saveGlobalStatus(settings.globalStatus());
+            db.saveBannedWorlds(settings.getBannedWorlds());
+        } catch(Exception ex) {
+            log.log(Level.WARNING, "[UHC] Error while saving data.");
+        }
         
     }
     
+    /**
+     * General execution tester
+     * @param player
+     * @param world
+     * @return TRUE if the listener should execute
+     */
     public boolean checkExec(Player player, World world) {
         if (!settings.globalStatus()) {
             return false;
@@ -127,6 +142,21 @@ public class UltraHardCoreMode extends JavaPlugin{
         
         
         return true;
+    }
+    
+    /**
+     * The checkExec method for the Regain Listener
+     * @param player
+     * @param world
+     * @param listener
+     * @return TRUE if the listener should execute
+     */
+    public boolean checkExec(Player player, World world, RegainListener listener) {
+        if (settings.potions()) {
+            return this.checkExec(player, world);
+        }
+        return false;
+        
     }
         
 
