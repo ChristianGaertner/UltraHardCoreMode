@@ -1,12 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package io.github.christiangaertner.ultrahardcoremode;
 
 import io.github.christiangaertner.ultrahardcoremode.Stats.DaStats;
 import io.github.christiangaertner.ultrahardcoremode.Stats.ErrorReporter;
-import io.github.christiangaertner.ultrahardcoremode.Stats.Metrics;
 import io.github.christiangaertner.ultrahardcoremode.file.Config;
 import io.github.christiangaertner.ultrahardcoremode.commandexecutor.HealCommandExecutor;
 import io.github.christiangaertner.ultrahardcoremode.commandexecutor.ListCommandExecutor;
@@ -36,7 +31,7 @@ public class UltraHardCoreMode extends JavaPlugin{
     
     
     //bukkit objects
-    public static final Logger log = Bukkit.getLogger();
+    public static final Logger LOGGER = Bukkit.getLogger();
     
     //own objects
     public Settings settings = new Settings();
@@ -53,7 +48,7 @@ public class UltraHardCoreMode extends JavaPlugin{
             //DATABASE
             db.initDataBase();
         } catch (IOException ex) {
-            log.log(Level.WARNING, "[UHC] Couldn' t create database file(s).");
+            LOGGER.log(Level.WARNING, "[UHC] Couldn' t create database file(s).");
         }
         if (!db.initialStart) {
             settings.initHashSetPlayers(db.loadPlayersDisabled());
@@ -64,21 +59,12 @@ public class UltraHardCoreMode extends JavaPlugin{
             settings.setGlobalStatus(db.loadGlobalStatus());
         }
         
-        //STATS STUFF
-        try {
-            //mcstats.org
-            Metrics metrics = new Metrics(this);
-            metrics.start();
-        } catch (IOException ex) {
-             log.log(Level.WARNING, "[UHC] Cannot submit to McMetrics.");
-        }
-        
         
         try {
             //dastats
             dastats.sendFirst();
         } catch (Exception ex) {
-            log.log(Level.WARNING, "[UHC] Cannot submit to DaStats.");
+            LOGGER.log(Level.WARNING, "[UHC] Cannot submit to DaStats.");
         }
         
         
@@ -108,7 +94,7 @@ public class UltraHardCoreMode extends JavaPlugin{
             db.saveGlobalStatus(settings.globalStatus());
             db.saveBannedWorlds(settings.getBannedWorlds());
         } catch(Exception ex) {
-            log.log(Level.WARNING, "[UHC] Error while saving data.");
+            LOGGER.log(Level.WARNING, "[UHC] Error while saving data.");
         }
         
     }

@@ -5,7 +5,7 @@
 package io.github.christiangaertner.ultrahardcoremode.Stats;
 
 import io.github.christiangaertner.ultrahardcoremode.UltraHardCoreMode;
-import static io.github.christiangaertner.ultrahardcoremode.UltraHardCoreMode.log;
+import static io.github.christiangaertner.ultrahardcoremode.UltraHardCoreMode.LOGGER;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
@@ -57,7 +57,7 @@ public class ErrorReporter {
             }
  
         } catch (Exception ex) {
-            log.log(Level.WARNING, "[UHC] Cannot submit to DaStats.");
+            LOGGER.log(Level.WARNING, "[UHC] Cannot submit to DaStats.");
         }
     }
 
